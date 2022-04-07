@@ -4,7 +4,7 @@
     let name = "Test Manuel"; //später import
     let usernumber = 123456789; //später import
 
-    let timestamps = [
+    let timestamps = [                  //später import
         {date: "01-01-2022", start: "7:00", end: "16:00", workTime: 8, break: 1},
         {date: "02-01-2022", start: "7:00", end: "15:30", workTime: 8, break: 0.5}
     ];
