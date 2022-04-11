@@ -23,7 +23,7 @@
 <div>
     {output}
     <div class="input-field">
-        <input placeholder="Enter your personnel number" type="number" bind:value={persnum}>
+        <input placeholder="Enter your personnel number" type="text" bind:value={persnum}>
         <input placeholder="Enter your first and lastname" type="text" bind:value={user}>
         <button on:click={() => tryLogin()}>Log In</button>
     </div>
