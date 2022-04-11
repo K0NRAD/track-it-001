@@ -39,13 +39,14 @@
 </script>
 
 <div>
-    <div class="container">
+    <div class="card">
+        <div class="place"></div>
         <div class="time">
             {timeOutput}
         </div>
-        <div class="image">
+        <div class="container">
             <img class="profile-image" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__480.png" alt="profilepic">
-            <div class="name">    
+            <div class="name">
                 {user}
             </div>
             <div class="id">
@@ -53,30 +54,34 @@
             </div>
         </div>
     </div>
-    <table class="tableA">
-        <thead class="theadA">
-            <tr>
-                <th>Datum</th>
-                <th>Arbeitsbeginn</th>
-                <th>Arbeitsende</th>
-                <th>Arbeitszeit</th>
-                <th>Pause</th>
-            </tr>
-        </thead>
-        <tbody class="table-body">
-            {#each timestamps as timestamp}
+    <div class="place"></div>
+    <div class="card">
+        <div class="place"></div>
+        <table class="tableA">
+            <thead class="theadA">
                 <tr>
-                    <td class="column">{timestamp.date}</td>
-                    <td class="column">{timestamp.start}</td>
-                    <td class="column">{timestamp.end}</td>
-                    <td class="column">{timestamp.workTime}</td>
-                    <td class="column">{timestamp.break}</td>
+                    <th>Datum</th>
+                    <th>Arbeitsbeginn</th>
+                    <th>Arbeitsende</th>
+                    <th>Arbeitszeit</th>
+                    <th>Pause</th>
                 </tr>
-            {/each}
-        </tbody>
-    </table>
-    <div class="buttons">
-        <button class="btnprint" on:click={() => print()}>Drucken</button>
+            </thead>
+            <tbody class="table-body">
+                {#each timestamps as timestamp}
+                    <tr>
+                        <td>{timestamp.date} </td>
+                        <td>{timestamp.start} </td>
+                        <td>{timestamp.end} </td>
+                        <td>{timestamp.workTime} </td>
+                        <td>{timestamp.break} </td>
+                    </tr>
+                {/each}
+            </tbody>
+        </table>
+        <div class="buttons">
+            <button class="btnprint" on:click={() => print()}>Drucken</button>
+        </div>  
     </div>
 </div>
 
@@ -87,27 +92,40 @@
         font-weight: bold;
         color:black;
         margin-top: 1rem;
-        margin-left: 11rem;
+        margin-left: 10.5rem;
+        user-select: none;
     }
 
     .name{
-        text-align: right;
-        margin-right: 15rem;
-        margin-top: 1rem;
+        text-align: left;
+        margin: 2rem 6rem 0 0;
         font-family:"Roboto",sans-serif;
         font-weight:300;
-        font-size: 40px;
+        font-size: 50px;
+        user-select: none;
+        float: right;
+        width: 150px;
     }
 
     .id{
-       margin-bottom: 1em;
-       margin-left:33.5rem;
+       margin: 3rem 35rem 0 0;
+       font-size: 2rem;
+       float: right;
+       width: auto;
+    }
+
+    .place {
+        height: 2rem;
+        width: 100%;
     }
 
     .container{
         width: 100%;
-        height: 200px;
+        height: 250px;
         border: none;
+        float: center;
+        user-select: none;
+        margin-top: 1rem;
     }
 
     .profile-image{
@@ -117,9 +135,17 @@
         margin-left: 8.5rem;
     }
 
+    .card {
+        margin: 0 20rem 0 20rem;
+        border-radius: 2rem;
+    }
+
     .theadA{
+        margin-top: 2rem;
         font-weight: bold;
+        font-size: 25px;
         color:rgb(57, 57, 57);
+        text-align: center;
     }
 
     .tableA{
@@ -128,13 +154,11 @@
         border: collapse;
         font-family:"Roboto",sans-serif;
         font-weight:300;
-        font-size: 15px;
+        font-size: 20px;
         color: rgb(94, 94, 94);
         font-style: bold;
-        margin-left: auto;
-        margin-right: auto;
-        text-align:left;
-
+        margin: 2rem auto 0 auto;
+        text-align: center;
     }
 
     th{
@@ -144,15 +168,14 @@
 
     .buttons{
         width: 40%;
-        margin-left: 30%;
-        margin-right: 30%
+        margin-left: 80%;
     }
 
     .btnprint{
         background-color: #9611bb;
         border-radius: 2em;
-        height:3em;
-        width: 9em;
+        height:4em;
+        width: 12em;
         margin: 2rem;
         box-sizing: border-box;
         display:inline-block;
