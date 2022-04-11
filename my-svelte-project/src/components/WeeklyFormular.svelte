@@ -1,21 +1,24 @@
 <script>
     //import {timestamps} from "./Time.svelte";
     import { onMount } from 'svelte';
-    import { user } from "../storage.js";
+    import LocalStorageApi from "../LocalStorageApi.js";
+    //import { user } from "../storage.js";
     //let name = "Test Manuel"; //später import
     //let usernumber = 123456789; //später import
-    //import {persnum} from "./LoginPage.svelte";
-    //import {user} from "./LoginPage.svelte";
 
     let timestamps = [                  //später import
         {date: "01-01-2022", start: "7:00", end: "16:00", workTime: 8, break: 1},
         {date: "02-01-2022", start: "7:00", end: "15:30", workTime: 8, break: 0.5}
     ];
 
-    let persnum;
-    let name;
-
     let timeOutput = "";
+    let user;
+    let persnum;
+
+    onMount(async () => {
+		user = await LocalStorageApi.loadUser();
+        persnum = await LocalStorageApi.loadNum();
+	});
 
     onMount(() => {
 		const interval = setInterval(() => {
@@ -24,8 +27,6 @@
             else if(time.getHours < 10) timeOutput = "0" + time.getHours() + ":" + time.getMinutes();
             else if(time.getMinutes < 10) timeOutput = time.getHours() + ":" + "0" + time.getMinutes();
             else timeOutput = "0" + time.getHours() + ":" + time.getMinutes();
-            persnum = user.persnum;
-            name = user.name;
 		}, 1000);
 
 		return () => {
@@ -49,7 +50,7 @@
                     {persnum}
                 </div>
                 <div class="username">    
-                    {name}
+                    {user}
                 </div>
             </div>
         </figure>
