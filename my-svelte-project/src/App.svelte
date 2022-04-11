@@ -7,6 +7,6 @@
     import "../node_modules/bulma/css/bulma.min.css";
 </script>
 
-<Navbar>Your time calulator</Navbar>
+<Navbar>Your work time calulator</Navbar>
 <Router routes={{"/Login":LoginPage}}></Router>
 <Router routes={{"/WeeklyFormular":WeeklyFormular}}></Router>

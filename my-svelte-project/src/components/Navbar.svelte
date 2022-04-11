@@ -18,6 +18,7 @@
             <div class="tabs">
                 <ul>
                     <li><a href="/#/Login">Login</a></li>
+                    <li><a href="/#/TimeTracking">Time Tracking</a></li>
                     <li><a href="/#/WeeklyFormular">Week Overview</a></li>
                     <li><a href="/#/DailyOverview">Daily Overview</a></li>
                 </ul>

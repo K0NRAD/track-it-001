@@ -11,4 +11,7 @@ export default class LocalStorageApi {
     static async loadNum(){
         return JSON.parse(localStorage.getItem("persnum")|| "[]");
     }
+    static async deleteUser() {
+        localStorage.clear();
+    }
 }

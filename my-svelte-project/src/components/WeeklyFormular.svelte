@@ -23,10 +23,11 @@
     onMount(() => {
 		const interval = setInterval(() => {
 			let time = new Date();
-            if(time.getHours < 10 && time.getMinutes < 10) timeOutput = "0" + time.getHours() + ":" + "0" + time.getMinutes();
-            else if(time.getHours < 10) timeOutput = "0" + time.getHours() + ":" + time.getMinutes();
-            else if(time.getMinutes < 10) timeOutput = time.getHours() + ":" + "0" + time.getMinutes();
-            else timeOutput = "0" + time.getHours() + ":" + time.getMinutes();
+            if(time.getHours() < 10 && time.getMinutes < 10) timeOutput = "0" + time.getHours() + ":" + "0" + time.getMinutes();
+            else if (time.getMinutes() === 0) timeOutput = time.getHours() + ":" + "00";
+            else if(time.getHours() < 10) timeOutput = "0" + time.getHours() + ":" + time.getMinutes();
+            else if(time.getMinutes() < 10) timeOutput = time.getHours() + ":" + "0" + time.getMinutes();
+            else timeOutput = time.getHours() + ":" + time.getMinutes();
 		}, 1000);
 
 		return () => {
@@ -108,15 +109,3 @@
         margin-bottom: 0;
     }
 </style>
-
-
-
-<!-- TODOS!
-
-LAYOUT: 
-farben formen etc
-"container" bild -> personalnummer -> name
-
-FUNKTIONALITÄT
-anbindung an die app mit anderen pages
-button schließen verknüpfen -->
