@@ -21,6 +21,7 @@
                     <li><a href="/#/TimeTracking">Time Tracking</a></li>
                     <li><a href="/#/WeeklyFormular">Week Overview</a></li>
                     <li><a href="/#/DailyOverview">Daily Overview</a></li>
+                    <li><a href="/#/ProtocolFormular">Protocol</a></li>
                 </ul>
             </div>
         </div>
