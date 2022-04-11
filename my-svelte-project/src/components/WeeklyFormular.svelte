@@ -1,20 +1,33 @@
 <script>
     //import {timestamps} from "./Time.svelte";
     import { onMount } from 'svelte';
-    let name = "Test Manuel"; //später import
-    let usernumber = 123456789; //später import
+    import LocalStorageApi from "../LocalStorageApi.js";
+    //import { user } from "../storage.js";
+    //let name = "Test Manuel"; //später import
+    //let usernumber = 123456789; //später import
 
-    let timestamps = [
+    let timestamps = [                  //später import
         {date: "01-01-2022", start: "7:00", end: "16:00", workTime: 8, break: 1},
         {date: "02-01-2022", start: "7:00", end: "15:30", workTime: 8, break: 0.5}
     ];
 
     let timeOutput = "";
+    let user;
+    let persnum;
+
+    onMount(async () => {
+		user = await LocalStorageApi.loadUser();
+        persnum = await LocalStorageApi.loadNum();
+	});
 
     onMount(() => {
 		const interval = setInterval(() => {
 			let time = new Date();
-            timeOutput = time.getHours() + ":" + time.getMinutes();
+            if(time.getHours() < 10 && time.getMinutes < 10) timeOutput = "0" + time.getHours() + ":" + "0" + time.getMinutes();
+            else if (time.getMinutes() === 0) timeOutput = time.getHours() + ":" + "00";
+            else if(time.getHours() < 10) timeOutput = "0" + time.getHours() + ":" + time.getMinutes();
+            else if(time.getMinutes() < 10) timeOutput = time.getHours() + ":" + "0" + time.getMinutes();
+            else timeOutput = time.getHours() + ":" + time.getMinutes();
 		}, 1000);
 
 		return () => {
@@ -22,7 +35,7 @@
 		};
 	});
 
-    export {timestamps};
+    //export {timestamps};
 </script>
 
 <div>
@@ -35,10 +48,10 @@
             <div class=container>
                 <img class="pic" src="https://www.kindpng.com/picc/m/285-2855863_a-festival-celebrating-tractors-round-profile-picture-placeholder.png" alt="profilepic">
                 <div class="usernum">
-                    {usernumber}
+                    {persnum}
                 </div>
                 <div class="username">    
-                    {name}
+                    {user}
                 </div>
             </div>
         </figure>
@@ -66,8 +79,8 @@
             {/each}
         </tbody>
     </table>
-    <button on:click={print(timestamps)}>Drucken</button>
-    <button on:click={close()}>Schließen</button>
+    <button on:click={() => print()}>Drucken</button>
+    <button on:click={() => close()}>Schließen</button>
 </div>
 
 <style>
@@ -96,15 +109,3 @@
         margin-bottom: 0;
     }
 </style>
-
-
-
-<!-- TODOS!
-
-LAYOUT: 
-farben formen etc
-"container" bild -> personalnummer -> name
-
-FUNKTIONALITÄT
-anbindung an die app mit anderen pages
-button schließen verknüpfen -->
