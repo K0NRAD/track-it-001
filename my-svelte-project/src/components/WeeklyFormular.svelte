@@ -39,26 +39,22 @@
 </script>
 
 <div>
-    <div class="time">
-        {timeOutput}
-    </div>
-    <div class="card">
-    <div class="card-image">
-        <figure class="image is-1by1">
-            <div class=container>
-                <img class="pic" src="https://www.kindpng.com/picc/m/285-2855863_a-festival-celebrating-tractors-round-profile-picture-placeholder.png" alt="profilepic">
-                <div class="usernum">
-                    {persnum}
-                </div>
-                <div class="username">    
-                    {user}
-                </div>
+    <div class="container">
+        <div class="time">
+            {timeOutput}
+        </div>
+        <div class="image">
+            <img class="profile-image" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__480.png" alt="profilepic">
+            <div class="name">    
+                {user}
             </div>
-        </figure>
+            <div class="id">
+                {persnum}
+            </div>
+        </div>
     </div>
-    </div>
-    <table class="table">
-        <thead class="table-head">
+    <table class="tableA">
+        <thead class="theadA">
             <tr>
                 <th>Datum</th>
                 <th>Arbeitsbeginn</th>
@@ -79,33 +75,94 @@
             {/each}
         </tbody>
     </table>
-    <button on:click={() => print()}>Drucken</button>
-    <button on:click={() => close()}>Schließen</button>
+    <div class="buttons">
+        <button class="btnprint" on:click={() => print()}>Drucken</button>
+    </div>
 </div>
 
 <style>
-    .table-head {
-        font-size: 2rem;
-        font-weight: 200;
-        text-align: center;
-    }
-    .column {
-        text-align: center;
-    }
-    .container {
-        width: 100%;
-        height: 200px;
-    }
-    .pic {
-        margin-top: 15px;
-        width: auto;
-        height: 150px;
-    }
+
     .time {
         font-size: 2rem;
         font-weight: bold;
-        margin-left: 25px;
-        margin-top: 5px;
-        margin-bottom: 0;
+        color:black;
+        margin-top: 1rem;
+        margin-left: 11rem;
+    }
+
+    .name{
+        text-align: right;
+        margin-right: 15rem;
+        margin-top: 1rem;
+        font-family:"Roboto",sans-serif;
+        font-weight:300;
+        font-size: 40px;
+    }
+
+    .id{
+       margin-bottom: 1em;
+       margin-left:33.5rem;
+    }
+
+    .container{
+        width: 100%;
+        height: 200px;
+        border: none;
+    }
+
+    .profile-image{
+        border-radius: 50%;
+        height:150px;
+        width:150px;
+        margin-left: 8.5rem;
+    }
+
+    .theadA{
+        font-weight: bold;
+        color:rgb(57, 57, 57);
+    }
+
+    .tableA{
+        height: 50px;
+        width:60%;
+        border: collapse;
+        font-family:"Roboto",sans-serif;
+        font-weight:300;
+        font-size: 15px;
+        color: rgb(94, 94, 94);
+        font-style: bold;
+        margin-left: auto;
+        margin-right: auto;
+        text-align:left;
+
+    }
+
+    th{
+    border: none;
+    
+    }
+
+    .buttons{
+        width: 40%;
+        margin-left: 30%;
+        margin-right: 30%
+    }
+
+    .btnprint{
+        background-color: #9611bb;
+        border-radius: 2em;
+        height:3em;
+        width: 9em;
+        margin: 2rem;
+        box-sizing: border-box;
+        display:inline-block;
+        padding:0.2em 1.2em;
+        text-decoration:none;
+        font-family:"Roboto",sans-serif;
+        font-weight:300;
+        color:#FFFFFF;
+        text-shadow: 0 0.04em 0.04em ;
+        text-align:center;
+        transition: all 0.2s;
     }
 </style>

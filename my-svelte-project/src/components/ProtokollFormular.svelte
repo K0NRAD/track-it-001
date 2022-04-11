@@ -14,25 +14,24 @@
         ];
 
         onMount(() => {
-            const interval = setInterval(() => {
-                let today = new Date();
-                time = today.getHours() + ":" + today.getMinutes();
-                }, 1000);
+		const interval = setInterval(() => {
+			let today = new Date();
+            if(today.getHours() < 10 && today.getMinutes < 10) time = "0" + today.getHours() + ":" + "0" + today.getMinutes();
+            else if (today.getMinutes() === 0) time = today.getHours() + ":" + "00";
+            else if(today.getHours() < 10) time = "0" + today.getHours() + ":" + today.getMinutes();
+            else if(today.getMinutes() < 10) time = today.getHours() + ":" + "0" + today.getMinutes();
+            else time = today.getHours() + ":" + today.getMinutes();
+		}, 1000);
 
-                return () => {
-            clearInterval(interval);
-            };
-        });
+		return () => {
+			clearInterval(interval);
+		};
+	});
 
 
         close(() => {
     
         });
-
-        //send(() => {
-    
-        //});
-
         export {protokolls};
 </script>
 
@@ -88,8 +87,8 @@
                   </div>
             </div>
         </div>
-            <table class="table">
-                <thead class="thead">
+            <table class="tableA">
+                <thead class="theadA">
                     <tr>
                         <th>Datum</th>
                         <th>Zeit</th>
@@ -112,7 +111,6 @@
             </table>
             <div class="buttons">
                 <button class="btnprint"on:click={print(protokolls)}>Drucken</button>
-                <button class="btnclose" on:click={close()}>Schliessen</button>
             </div>
         </div>
      </div>
@@ -170,12 +168,12 @@
         width:30px;
     }
 
-    .thead{
+    .theadA{
         font-weight: bold;
         color:rgb(57, 57, 57);
     }
 
-    .table{
+    .tableA{
         height: 50px;
         width:60%;
         border: collapse;
