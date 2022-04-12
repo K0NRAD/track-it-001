@@ -1,10 +1,7 @@
 <script>
         import { onMount } from "svelte";
+        import LocalStorageApi from "../LocalStorageApi.js";
 
-
-        let name= "John Doe";
-        let usernumber="123-456-789";
-        let time = "";
 
         let protokolls = [
         {date: "07.04.2022", time: "08:30", typ: "P10", designation: "Kommen", pic:""},
@@ -12,6 +9,16 @@
         {date: "07.04.2022", time: "13:00", typ: "P25", designation: "Ende Pause", pic:""},
         {date: "07.04.2022", time: "16:30", typ: "P20", designation: "Gehen", pic:""}
         ];
+
+        let user;
+        let persnum;
+        let time = "";
+
+        onMount(async () => {
+		user = await LocalStorageApi.loadUser();
+        persnum = await LocalStorageApi.loadNum();
+	    });
+
 
         onMount(() => {
 		const interval = setInterval(() => {
@@ -27,66 +34,79 @@
 			clearInterval(interval);
 		};
 	});
+   // <img src=https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQXktw6DUv_3pFI96cPYwX1MmfoM-Hmy9Gn5zdn2xeOte_2DyPMQ_3Uk5eVtcU4dQL79e8&usqp=CAU/>
+   // edit(() => {
+    //   var x;
+    //   var tds = x.closest('tr').find('td').filter(function() {
+    //           return x.find('.editbtn').length === 0;
+    //  });
+    //        if (x.html() === 'Edit') {
+     //           x.html('Save');
+    //            tds.prop('contenteditable', true);
+     //       } else {
+     //           x.html('Edit');
+    //            tds.prop('contenteditable', false);
+     //       }
+  //  });
 
+   
 
-        close(() => {
-    
-        });
+            
+  
         export {protokolls};
 </script>
 
 <div>
-    <div class="container">
+    <div class="card">
+        <div class="place"></div>
         <div class="time">
             {time}
         </div>
-        <div class="image">
+        <div class="container">
             <img class="profile-image" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__480.png" alt="profile-img">
-        </div>
-        <div class="name">
-            {name}
-        </div>
-        <div class="id">
-            {usernumber}
-        </div>
-    <div>
+            <div class="name">
+                    {user}
+            </div>
+            <div class="id">
+                    {persnum}
+            </div>
+    </div>
         <div>
-            <div class="selects">
-                <div class="select-kw">
-                    <select>
-                      <option>KW 01</option>
-                      <option>KW 02</option>
-                      <option>KW 03</option>
-                      <option>KW 04</option>
-                      <option>KW 05</option>
-                      <option>KW 06</option>
-                      <option>KW 07</option>
+            <div class="dropdowns">
+                    <select class="select-kw">
+                            <option>KW 01</option>
+                            <option>KW 02</option>
+                            <option>KW 03</option>
+                            <option>KW 04</option>
+                            <option>KW 05</option>
+                            <option>KW 06</option>
+                            <option>KW 07</option>
                     </select>
-                  </div>
-                  <div class="select-dateBeginn">
-                    <select>
-                      <option>07.01.2022</option>
-                      <option>08.01.2022</option>
-                      <option>09.01.2022</option>
-                      <option>10.01.2022</option>
-                      <option>11.01.2022</option>
-                      <option>12.01.2022</option>
-                      <option>13.01.2022</option>
+                    <select class="select-dateBeginn">
+                            <option>07.01.2022</option>
+                            <option>08.01.2022</option>
+                            <option>09.01.2022</option>
+                            <option>10.01.2022</option>
+                            <option>11.01.2022</option>
+                            <option>12.01.2022</option>
+                            <option>13.01.2022</option>
                     </select>
-                  </div>
-                  <div class="select-dateEnd">
-                    <select>
-                        <option>07.01.2022</option>
-                        <option>08.01.2022</option>
-                        <option>09.01.2022</option>
-                        <option>10.01.2022</option>
-                        <option>11.01.2022</option>
-                        <option>12.01.2022</option>
-                        <option>13.01.2022</option>
+                    <select class="select-dateEnd">
+                            <option>07.01.2022</option>
+                            <option>08.01.2022</option>
+                            <option>09.01.2022</option>
+                            <option>10.01.2022</option>
+                            <option>11.01.2022</option>
+                            <option>12.01.2022</option>
+                            <option>13.01.2022</option>
                     </select>
                   </div>
             </div>
         </div>
+    </div>
+        <div class="place"></div>
+        <div class="card">
+            <div class="place"></div>
             <table class="tableA">
                 <thead class="theadA">
                     <tr>
@@ -97,14 +117,14 @@
                         <th></th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="table-body">
                     {#each protokolls as protokoll}
-                        <tr class="columns">
-                            <td class="column" contenteditable="true">{protokoll.date}</td>
-                            <td class="column" contenteditable="true">{protokoll.time}</td>
-                            <td class="column" contenteditable="true">{protokoll.typ}</td>
-                            <td class="column" contenteditable="true">{protokoll.designation}</td>
-                            <td class="column"><img class="img-pencil" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQXktw6DUv_3pFI96cPYwX1MmfoM-Hmy9Gn5zdn2xeOte_2DyPMQ_3Uk5eVtcU4dQL79e8&usqp=CAU" alt="pen"/></td>
+                        <tr>
+                            <td contenteditable="false">{protokoll.date}</td>
+                            <td contenteditable="false">{protokoll.time}</td>
+                            <td contenteditable="false">{protokoll.typ}</td>
+                            <td contenteditable="false">{protokoll.designation}</td>
+                            <td><button class="editbtn"></button></td>
                         </tr>
                     {/each}
                 </tbody>
@@ -112,128 +132,153 @@
             <div class="buttons">
                 <button class="btnprint"on:click={print(protokolls)}>Drucken</button>
             </div>
-        </div>
-     </div>
- </div>
-
-
+</div>
+    
 <style>
 
-    .time {
-        font-size: 2rem;
-        font-weight: bold;
-        color:black;
-        margin-top: 1rem;
-        margin-left: 11rem;
-    }
+        .dropdowns{
+            text-align: center;
+            margin-left: 6rem;
+            position: relative;
+            display: inline-block;
+        }
+        .select-kw{
+            margin: 2rem 6rem;
+            font-family:"Roboto",sans-serif;
+            font-weight:300;
+            font-size: 20px;
+            margin-bottom: 3rem;
+            clear: both;
+            text-align: left;
+            border-style: none;
+        }
 
-    .name{
-        text-align: right;
-        margin-right: 15rem;
-        margin-top: 1rem;
-        font-family:"Roboto",sans-serif;
-        font-weight:300;
-        font-size: 40px;
-    }
+        .select-dateBeginn{
+            margin: 2rem 6rem;
+            font-family:"Roboto",sans-serif;
+            font-weight:300;
+            font-size: 20px;
+            margin-bottom: 3rem;
+            text-align: left;
+            border-style: none;
+        }
 
-    .id{
-       margin-bottom: 1em;
-       margin-left:33.5rem;
-    }
+        .select-dateEnd{
+            margin: 2rem 6rem;
+            font-family:"Roboto",sans-serif;
+            font-weight:300;
+            font-size: 20px;
+            margin-bottom: 3rem;
+            text-align: left;
+            border-style: none;
+        }
 
-    .selects{
-        margin-left: 10em;
-        margin-bottom: 2em;
-        width: 40%;
-        margin-left: 30%;
-        margin-right: 30%
-    }
-
-
-    .container{
-        width: 100%;
-        height: 200px;
-        border: none;
-    }
-
-    .profile-image{
-        border-radius: 50%;
-        height:150px;
-        width:150px;
-        margin-left: 8.5rem;
-    }
-
-    .img-pencil{
-        height:30px;
-        width:30px;
-    }
-
-    .theadA{
-        font-weight: bold;
-        color:rgb(57, 57, 57);
-    }
-
-    .tableA{
-        height: 50px;
-        width:60%;
-        border: collapse;
-        font-family:"Roboto",sans-serif;
-        font-weight:300;
-        font-size: 15px;
-        color: rgb(94, 94, 94);
-        font-style: bold;
-        margin-left: auto;
-        margin-right: auto;
-        text-align:left;
-
-    }
-
-    th{
-    border: none;
+        .time {
+            font-size: 2rem;
+            font-weight: bold;
+            color:black;
+            margin-top: 1rem;
+            margin-left: 10.5rem;
+            user-select: none;
+        }
     
-    }
+        .name{
+            text-align: left;
+            margin: 2rem 6rem 0 0;
+            font-family:"Roboto",sans-serif;
+            font-weight:300;
+            font-size: 50px;
+            user-select: none;
+            float: right;
+            width: 150px;
+        }
+    
+        .id{
+           margin: 3rem 35rem 0 0;
+           font-size: 2rem;
+           float: right;
+           width: auto;
+        }
+    
+        .place {
+            height: 2rem;
+            width: 100%;
+        }
+    
+        .container{
+            width: 100%;
+            height: 190px;
+            border: none;
+            float: center;
+            user-select: none;
+            margin-top: 1rem;
+        }
+    
+        .profile-image{
+            border-radius: 50%;
+            height:150px;
+            width:150px;
+            margin-left: 8.5rem;
+        }
+    
+        .card {
+            margin: 0 20rem 0 20rem;
+            border-radius: 2rem;
+        }
+    
+        .theadA{
+            margin-top: 2rem;
+            font-weight: bold;
+            font-size: 25px;
+            color:rgb(57, 57, 57);
+            text-align: center;
+        }
+    
+        .tableA{
+            height: 50px;
+            width:60%;
+            border: collapse;
+            font-family:"Roboto",sans-serif;
+            font-weight:300;
+            font-size: 20px;
+            color: rgb(94, 94, 94);
+            font-style: bold;
+            margin: 2rem auto 0 auto;
+            text-align: center;
+        }
+    
+        th{
+        border: none;
+        
+        }
+    
+        .buttons{
+            width: 40%;
+            margin-left: 80%;
+        }
+    
+        .btnprint{
+            background-color: #9611bb;
+            border-radius: 2em;
+            height:4em;
+            width: 12em;
+            margin: 2rem;
+            box-sizing: border-box;
+            display:inline-block;
+            padding:0.2em 1.2em;
+            text-decoration:none;
+            font-family:"Roboto",sans-serif;
+            font-weight:300;
+            color:#FFFFFF;
+            text-shadow: 0 0.04em 0.04em ;
+            text-align:center;
+            transition: all 0.2s;
+        }
 
-    .buttons{
-        width: 40%;
-        margin-left: 30%;
-        margin-right: 30%
-    }
-
-    .btnprint{
-        background-color: #9611bb;
-        border-radius: 2em;
-        height:3em;
-        width: 9em;
-        margin: 2rem;
-        box-sizing: border-box;
-        display:inline-block;
-        padding:0.2em 1.2em;
-        text-decoration:none;
-        font-family:"Roboto",sans-serif;
-        font-weight:300;
-        color:#FFFFFF;
-        text-shadow: 0 0.04em 0.04em ;
-        text-align:center;
-        transition: all 0.2s;
-    }
-
-    .btnclose{
-        background-color:#008dd9;
-        border-radius: 2em;
-        margin: 2rem;
-        height:3em;
-        width: 9em;
-        box-sizing: border-box;
-        border:transparent;
-        display:inline-block;
-        padding:0.2em 1.2em;
-        text-decoration:none;
-        font-family:"Roboto",sans-serif;
-        font-weight:300;
-        color:#FFFFFF;
-        text-shadow: 0 0.04em 0.04em;
-        text-align:center;
-        transition: all 0.2s;
-    }
 
 </style>
+
+
+  
+
+   
