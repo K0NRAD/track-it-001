@@ -22,9 +22,51 @@
 
 <div>
     {output}
-    <div class="input-field">
-        <input placeholder="Enter your personnel number" type="text" bind:value={persnum}>
-        <input placeholder="Enter your first and lastname" type="text" bind:value={user}>
-        <button on:click={() => tryLogin()}>Log In</button>
+    <div class="card">
+        <div class="input-field">
+            <div class="input-pn">
+                <input placeholder="Enter your personal number" type="text" bind:value={persnum}>
+            </div>
+            <div class="input-n">
+                <input placeholder="Enter your first and lastname" type="text" bind:value={user}>
+            </div>
+                <button class="btnlogin"on:click={() => tryLogin()}>Log In</button>
+        </div>
     </div>
 </div>
+
+<style>
+
+    .input-pn{
+        margin:  0 0 3rem 0 ;
+    }
+    .input-n{
+        position:relative;
+    }
+    .input-field{
+        text-align: center;
+        margin: 15rem 0 0 0;
+    }
+     .card {
+        height:20rem;
+        margin-top: 10rem;
+        border-radius: 2rem;
+    }
+    .btnlogin{
+        background-color: #11bbaa;
+        border-radius: 2em;
+        height:4em;
+        width: 12em;
+        margin: 5rem 0 0 0;
+        box-sizing: border-box;
+        display:inline-block;
+        padding:0.2em 1.2em;
+        text-decoration:none;
+        font-family:"Roboto",sans-serif;
+        font-weight:300;
+        color:#FFFFFF;
+        text-shadow: 0 0.04em 0.04em ;
+        text-align:center;
+        transition: all 0.2s;
+    }
+</style>
