@@ -106,17 +106,23 @@
                 </tbody>
             </table>
             <div class="buttons">
-                <button class="btnedit"on:click={() => saveClick()}><img src={picture} alt="saveimage"></button>
+                <button class="btnedit"on:click={() => saveClick()}><img class="buttonImage" src={picture} alt="saveimage"></button>
                 <button class="btnprint"on:click={print(protokolls)}>Drucken</button>
             </div>
 </div>
     
 <style>
-
-.btnedit {
-            width: 20%;
-            margin-left: 40%;
-        }
+    .buttonImage {
+        height: 4em;
+        width: 100%;
+    }
+    .btnedit {
+        border: none;
+        width: 10%;
+        float: center;
+        height: 4em;
+        background-color: transparent;
+    }
     .dropdowns{
         align-self: center;
         align-items: center;
@@ -214,6 +220,7 @@
         color:rgb(57, 57, 57);
         text-align: center;
         width: 80%;
+        user-select: none;
     }
     .tableA {
         height: 50px;
@@ -226,15 +233,12 @@
         font-style: bold;
         margin: 2rem auto 0 auto;
         text-align: center;
-    }
-    .th {
-        border-style: none;
-        margin: 20px;
-        text-align: center;
+        user-select: none;
     }
     .buttons {
+        user-select: none;
         width: 40%;
-        margin-left: 80%;
+        margin-left: 75%;
     }
     .btnprint {
         background-color: #9611bb;
