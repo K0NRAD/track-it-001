@@ -66,7 +66,7 @@
     </div>
         <div>
             <div class="dropdowns">
-                    <input class="select-kw" type="week" id="week" name="kw">
+                    <input class="select-kw" type="week" name="kw">
                     <input class="select-dateBegin" type="date" name="dateBegin">
                     <input class="select-dateEnd" type="date" name="dateEnd">
                   </div>
@@ -106,146 +106,142 @@
     
 <style>
 
-        .dropdowns{
-            text-align: center;
-            margin-left: 6rem;
-            position: relative;
-            display: inline-block;
-        }
-        .select-kw{
-            margin: 2rem 6rem;
-            font-family:"Roboto",sans-serif;
-            font-weight:300;
-            font-size: 20px;
-            margin-bottom: 3rem;
-            clear: both;
-            text-align: left;
-            border-style: none;
-        }
+    .dropdowns{
+        align-self: center;
+        align-items: center;
+        margin-top: 2%;
+        float: center;
+        width: 100%;
+        height: 5%;
+    }
+    .select-kw{
+        margin: 0 0 3% 14%;
+        font-family:"Roboto",sans-serif;
+        font-weight:300;
+        font-size: 110%;
+        text-align: left;
+        border-style: none;
+        float: left;
+        width: 22%;
+    }
 
-        .select-dateBegin{
-            margin: 2rem 6rem;
-            font-family:"Roboto",sans-serif;
-            font-weight:300;
-            font-size: 20px;
-            margin-bottom: 3rem;
-            text-align: left;
-            border-style: none;
-        }
+    .select-dateBegin{
+        margin: 0 0 3% 10%;
+        font-family:"Roboto",sans-serif;
+        font-weight:300;
+        font-size: 110%;
+        text-align: left;
+        border-style: none;
+        float: center;
+        width: 18%;
+    }
 
-        .select-dateEnd{
-            margin: 2rem 6rem;
-            font-family:"Roboto",sans-serif;
-            font-weight:300;
-            font-size: 20px;
-            margin-bottom: 3rem;
-            text-align: left;
-            border-style: none;
-        }
+    .select-dateEnd{
+        margin: 0 15% 3% 0;
+        font-family:"Roboto",sans-serif;
+        font-weight:300;
+        font-size: 110%;
+        text-align: left;
+        float: right;
+        border-style: none;
+        width: 18%;
+    }
 
-        .time {
-            font-size: 2rem;
-            font-weight: bold;
-            color:black;
-            margin-top: 1rem;
-            margin-left: 10.5rem;
-            user-select: none;
-        }
-    
-        .name{
-            text-align: center;
-            margin: 2rem 6rem 0 0;
-            font-family:"Roboto",sans-serif;
-            font-weight:300;
-            font-size: 50px;
-            user-select: none;
-            float: right;
-            width: 350px;
-        }
-    
-        .id{
-           margin: 3rem 19rem 0 0;
-           font-size: 2rem;
-           float: right;
-           width: 200px;
-        }
-    
-        .place {
-            height: 2rem;
-            width: 100%;
-        }
-    
-        .container{
-            width: 100%;
-            height: 190px;
-            border: none;
-            float: center;
-            user-select: none;
-            margin-top: 1rem;
-        }
-    
-        .profile-image{
-            border-radius: 50%;
-            height:150px;
-            width:150px;
-            margin-left: 8.5rem;
-        }
-    
-        .card {
-            margin: 0 20rem 0 20rem;
-            border-radius: 2rem;
-        }
-    
-        .theadA{
-            margin-top: 2rem;
-            font-weight: bold;
-            font-size: 25px;
-            color:rgb(57, 57, 57);
-            text-align: center;
-        }
-    
-        .tableA{
-            height: 50px;
-            width:60%;
-            border: collapse;
-            font-family:"Roboto",sans-serif;
-            font-weight:300;
-            font-size: 20px;
-            color: rgb(94, 94, 94);
-            font-style: bold;
-            margin: 2rem auto 0 auto;
-            text-align: center;
-        }
-    
-        th{
+    .time {
+        font-size: 2rem;
+        font-weight: bold;
+        color:black;
+        margin-top: 1rem;
+        margin-left: 14%;
+        user-select: none;
+    }
+
+    .name {
+        text-align: center;
+        margin: 5% 0 1% 0;
+        font-family:"Roboto",sans-serif;
+        font-weight:300;
+        font-size: 300%;
+        user-select: none;
+        float: right;
+        width: 40%;
+    }
+    .id {
+       margin: 6% 2% 0 0;
+       font-size: 200%;
+       float: right;
+       width: 25%;
+    }
+    .place {
+        height: 2rem;
+        width: 100%;
+    }
+    .container {
+        align-self: center;
+        align-items: center;
+        width: 100%;
+        height: 250px;
         border: none;
-        
-        }
-    
-        .buttons{
-            width: 40%;
-            margin-left: 80%;
-        }
-    
-        .btnprint{
-            background-color: #9611bb;
-            border-radius: 2em;
-            height:4em;
-            width: 12em;
-            margin: 2rem;
-            box-sizing: border-box;
-            display:inline-block;
-            padding:0.2em 1.2em;
-            text-decoration:none;
-            font-family:"Roboto",sans-serif;
-            font-weight:300;
-            color:#FFFFFF;
-            text-shadow: 0 0.04em 0.04em ;
-            text-align:center;
-            transition: all 0.2s;
-        }
-
-
+        float: center;
+        user-select: none;
+        margin: 0 0 0 7%;
+    }
+    .profile-image {
+        border-radius: 50%;
+        height: 60% / width;
+        width: 11.5%;
+        margin: 3% 0 0 7%;
+    }
+    .card {
+        margin: 0 5% 0 5%;
+        border-radius: 2rem;
+    }
+    .theadA {
+        margin-top: 2rem;
+        font-weight: bold;
+        font-size: 100%;
+        color:rgb(57, 57, 57);
+        text-align: center;
+        width: 80%;
+    }
+    .tableA {
+        height: 50px;
+        width: 80%;
+        border: collapse;
+        font-family:"Roboto",sans-serif;
+        font-weight:300;
+        font-size: 125%;
+        color: rgb(94, 94, 94);
+        font-style: bold;
+        margin: 2rem auto 0 auto;
+        text-align: center;
+    }
+    .th {
+        border-style: none;
+        margin: 20px;
+        text-align: center;
+    }
+    .buttons {
+        width: 40%;
+        margin-left: 80%;
+    }
+    .btnprint {
+        background-color: #9611bb;
+        border-radius: 2em;
+        height:4em;
+        width: 30%;
+        margin: 2rem;
+        box-sizing: border-box;
+        display:inline-block;
+        padding:0.2em 1.2em;
+        text-decoration:none;
+        font-family:"Roboto",sans-serif;
+        font-weight:300;
+        color:#FFFFFF;
+        text-shadow: 0 0.04em 0.04em ;
+        text-align:center;
+        transition: all 0.2s;
+    }
 </style>
 
 
