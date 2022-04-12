@@ -11,4 +11,4 @@
 <Navbar>Your work time calulator</Navbar>
 <Router routes={{"/Login":LoginPage}}></Router>
 <Router routes={{"/WeeklyFormular":WeeklyFormular}}></Router>
-<Router routes={{"/ProtocolFormular":ProtokollFormular}}></Router>
+<Router routes={{"/DailyOverview":ProtokollFormular}}></Router>
