@@ -23,7 +23,7 @@
     onMount(() => {
 		const interval = setInterval(() => {
 			let time = new Date();
-            if(time.getHours() < 10 && time.getMinutes < 10) timeOutput = "0" + time.getHours() + ":" + "0" + time.getMinutes();
+            if(time.getHours() < 10 && time.getMinutes() < 10) timeOutput = "0" + time.getHours() + ":" + "0" + time.getMinutes();
             else if (time.getMinutes() === 0) timeOutput = time.getHours() + ":" + "00";
             else if(time.getHours() < 10) timeOutput = "0" + time.getHours() + ":" + time.getMinutes();
             else if(time.getMinutes() < 10) timeOutput = time.getHours() + ":" + "0" + time.getMinutes();
@@ -80,6 +80,7 @@
             </tbody>
         </table>
         <div class="buttons">
+            <!-- svelte-ignore missing-declaration -->
             <button class="btnprint" on:click={() => print()}>Drucken</button>
         </div>  
     </div>
@@ -97,21 +98,21 @@
     }
 
     .name{
-        text-align: left;
+        text-align: center;
         margin: 2rem 6rem 0 0;
         font-family:"Roboto",sans-serif;
         font-weight:300;
         font-size: 50px;
         user-select: none;
         float: right;
-        width: 150px;
+        width: 350px;
     }
 
     .id{
-       margin: 3rem 35rem 0 0;
+       margin: 3rem 19rem 0 0;
        font-size: 2rem;
        float: right;
-       width: auto;
+       width: 200px;
     }
 
     .place {

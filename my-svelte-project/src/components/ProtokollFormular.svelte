@@ -130,6 +130,7 @@
                 </tbody>
             </table>
             <div class="buttons">
+                <!-- svelte-ignore missing-declaration -->
                 <button class="btnprint"on:click={print(protokolls)}>Drucken</button>
             </div>
 </div>
@@ -183,21 +184,21 @@
         }
     
         .name{
-            text-align: left;
+            text-align: center;
             margin: 2rem 6rem 0 0;
             font-family:"Roboto",sans-serif;
             font-weight:300;
             font-size: 50px;
             user-select: none;
             float: right;
-            width: 150px;
+            width: 350px;
         }
     
         .id{
-           margin: 3rem 35rem 0 0;
+           margin: 3rem 19rem 0 0;
            font-size: 2rem;
            float: right;
-           width: auto;
+           width: 200px;
         }
     
         .place {
