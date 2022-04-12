@@ -60,11 +60,11 @@
         <table class="tableA">
             <thead class="theadA">
                 <tr>
-                    <th>Datum</th>
-                    <th>Arbeitsbeginn</th>
-                    <th>Arbeitsende</th>
-                    <th>Arbeitszeit</th>
-                    <th>Pause</th>
+                    <th class="th">Datum</th>
+                    <th class="th">Arbeitsbeginn</th>
+                    <th class="th">Arbeitsende</th>
+                    <th class="th">Arbeitszeit</th>
+                    <th class="th">Pause</th>
                 </tr>
             </thead>
             <tbody class="table-body">
@@ -93,26 +93,26 @@
         font-weight: bold;
         color:black;
         margin-top: 1rem;
-        margin-left: 10.5rem;
+        margin-left: 14%;
         user-select: none;
     }
 
-    .name{
+    .name {
         text-align: center;
-        margin: 2rem 6rem 0 0;
+        margin: 5% 0 1% 0;
         font-family:"Roboto",sans-serif;
         font-weight:300;
-        font-size: 50px;
+        font-size: 300%;
         user-select: none;
         float: right;
-        width: 350px;
+        width: 40%;
     }
 
-    .id{
-       margin: 3rem 19rem 0 0;
-       font-size: 2rem;
+    .id {
+       margin: 6% 2% 0 0;
+       font-size: 200%;
        float: right;
-       width: 200px;
+       width: 25%;
     }
 
     .place {
@@ -120,63 +120,67 @@
         width: 100%;
     }
 
-    .container{
+    .container {
+        align-self: center;
+        align-items: center;
         width: 100%;
         height: 250px;
         border: none;
         float: center;
         user-select: none;
-        margin-top: 1rem;
+        margin: 0 0 0 7%;
     }
 
-    .profile-image{
+    .profile-image {
         border-radius: 50%;
-        height:150px;
-        width:150px;
-        margin-left: 8.5rem;
+        height: 60% / width;
+        width: 11.5%;
+        margin: 3% 0 0 7%;
     }
 
     .card {
-        margin: 0 20rem 0 20rem;
+        margin: 0 5% 0 5%;
         border-radius: 2rem;
     }
 
-    .theadA{
+    .theadA {
         margin-top: 2rem;
         font-weight: bold;
-        font-size: 25px;
+        font-size: 100%;
         color:rgb(57, 57, 57);
         text-align: center;
+        width: 80%;
     }
 
-    .tableA{
+    .tableA {
         height: 50px;
-        width:60%;
+        width: 80%;
         border: collapse;
         font-family:"Roboto",sans-serif;
         font-weight:300;
-        font-size: 20px;
+        font-size: 125%;
         color: rgb(94, 94, 94);
         font-style: bold;
         margin: 2rem auto 0 auto;
         text-align: center;
     }
 
-    th{
-    border: none;
-    
+    th {
+        border-style: none;
+        margin: 20px;
+        text-align: center;
     }
 
-    .buttons{
+    .buttons {
         width: 40%;
         margin-left: 80%;
     }
 
-    .btnprint{
+    .btnprint {
         background-color: #9611bb;
         border-radius: 2em;
         height:4em;
-        width: 12em;
+        width: 30%;
         margin: 2rem;
         box-sizing: border-box;
         display:inline-block;
