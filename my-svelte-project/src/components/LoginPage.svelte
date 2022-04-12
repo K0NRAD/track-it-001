@@ -18,13 +18,17 @@
 <div>
     {output}
     <div class="card">
+        <h2>Login</h2>
         <div class="input-field">
-            <div class="place"></div>
+            <p class="txt-personal-number">Personal Number:</p>
             <div class="input-pn">
-                <input class="input-num" placeholder="Enter your personal number" type="text" bind:value={persnum}>
+                <input class="inputBox-pn" type="text" bind:value={persnum}>
+           
             </div>
+            <p class="txt-name">First- and Lastname:</p>
             <div class="input-n">
-                <input class="input-name" placeholder="Enter your first and lastname" type="text" bind:value={user}>
+                <input class="inputBox-n" type="text" bind:value={user}>
+               
             </div>
                 <button class="btnlogin"on:click={() => tryLogin()}>Log In</button>
         </div>
@@ -33,17 +37,26 @@
 
 <style>
 
-    .input-name {
-        width: 10%;
-        text-align: center;
+    h2{ 
+        text-align:center;
+        font-size: 45px;
+        font-family:"Roboto",sans-serif;
+        font-weight:300;
+        margin-top: 3rem;
     }
-    .input-num {
-        width: 10%;
-        text-align: center;
+
+    .inputBox-pn{
+        border-radius: 3rem;
+        border-inline-color: #11bbaa;
+        height:2rem;
+        width:15rem;
     }
-    .place {
-        height: 2rem;
-        width: 100%;
+    
+    .inputBox-n{
+        border-radius: 3rem;
+        border-inline-color: hsl(141, 53%, 53%);
+        height:2rem;
+        width:15rem;
     }
     .input-pn{
         margin:  0 0 3rem 0 ;
@@ -53,15 +66,17 @@
     }
     .input-field{
         text-align: center;
-        margin: 15rem 0 0 0;
+        margin: 0.5rem 0 0 0;
     }
      .card {
-        height:20rem;
+        height:25rem;
         margin-top: 10rem;
+        margin-left: 40rem;
+        margin-right:40rem;
         border-radius: 2rem;
     }
     .btnlogin{
-        background-color: #11bbaa;
+        background-color:hsl(141, 53%, 53%);
         border-radius: 2em;
         height:4em;
         width: 12em;

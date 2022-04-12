@@ -4,7 +4,7 @@
     let form;
 </script>
 
-<selection class="hero is-primary welcome is-small">
+<selection class="hero is-success welcome is-small">
     <div class="hero-body">
         <div class="container">
             <h1 class="title">Track IT</h1>

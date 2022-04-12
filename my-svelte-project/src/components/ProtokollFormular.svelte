@@ -2,7 +2,6 @@
         import { onMount } from "svelte";
         import LocalStorageApi from "../LocalStorageApi.js";
 
-
         let protokolls = [
         {date: "07.04.2022", time: "08:30", typ: "P10", designation: "Kommen", pic:""},
         {date: "07.04.2022", time: "12:00", typ: "P15", designation: "Beginn Pause", pic:""},
@@ -10,9 +9,11 @@
         {date: "07.04.2022", time: "16:30", typ: "P20", designation: "Gehen", pic:""}
         ];
 
+
         let user;
         let persnum;
         let time = "";
+        let editModus = false;
 
         onMount(async () => {
 		user = await LocalStorageApi.loadUser();
@@ -35,25 +36,17 @@
 		};
 	});
    // <img src=https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQXktw6DUv_3pFI96cPYwX1MmfoM-Hmy9Gn5zdn2xeOte_2DyPMQ_3Uk5eVtcU4dQL79e8&usqp=CAU/>
-   // edit(() => {
-    //   var x;
-    //   var tds = x.closest('tr').find('td').filter(function() {
-    //           return x.find('.editbtn').length === 0;
-    //  });
-    //        if (x.html() === 'Edit') {
-     //           x.html('Save');
-    //            tds.prop('contenteditable', true);
-     //       } else {
-     //           x.html('Edit');
-    //            tds.prop('contenteditable', false);
-     //       }
-  //  });
 
-   
-
+    
+        const editClick = () => {
+            editModus = true;
             
-  
-        export {protokolls};
+        }
+
+          
+
+
+    export {protokolls};
 </script>
 
 <div>
@@ -73,33 +66,9 @@
     </div>
         <div>
             <div class="dropdowns">
-                    <select class="select-kw">
-                            <option>KW 01</option>
-                            <option>KW 02</option>
-                            <option>KW 03</option>
-                            <option>KW 04</option>
-                            <option>KW 05</option>
-                            <option>KW 06</option>
-                            <option>KW 07</option>
-                    </select>
-                    <select class="select-dateBeginn">
-                            <option>07.01.2022</option>
-                            <option>08.01.2022</option>
-                            <option>09.01.2022</option>
-                            <option>10.01.2022</option>
-                            <option>11.01.2022</option>
-                            <option>12.01.2022</option>
-                            <option>13.01.2022</option>
-                    </select>
-                    <select class="select-dateEnd">
-                            <option>07.01.2022</option>
-                            <option>08.01.2022</option>
-                            <option>09.01.2022</option>
-                            <option>10.01.2022</option>
-                            <option>11.01.2022</option>
-                            <option>12.01.2022</option>
-                            <option>13.01.2022</option>
-                    </select>
+                    <input class="select-kw" type="week" id="week" name="kw">
+                    <input class="select-dateBegin" type="date" name="dateBegin">
+                    <input class="select-dateEnd" type="date" name="dateEnd">
                   </div>
             </div>
         </div>
@@ -107,7 +76,7 @@
         <div class="place"></div>
         <div class="card">
             <div class="place"></div>
-            <table class="tableA">
+            <table class="tableA" id="productTable">
                 <thead class="theadA">
                     <tr>
                         <th>Datum</th>
@@ -120,11 +89,11 @@
                 <tbody class="table-body">
                     {#each protokolls as protokoll}
                         <tr>
-                            <td contenteditable="false">{protokoll.date}</td>
-                            <td contenteditable="false">{protokoll.time}</td>
-                            <td contenteditable="false">{protokoll.typ}</td>
-                            <td contenteditable="false">{protokoll.designation}</td>
-                            <td><button class="editbtn"></button></td>
+                            <td contenteditable={editModus}>{protokoll.date}</td>
+                            <td contenteditable={editModus}>{protokoll.time}</td>
+                            <td contenteditable={editModus}>{protokoll.typ}</td>
+                            <td contenteditable={editModus}>{protokoll.designation}</td>
+                            <button on:click={() => editClick(edit.id)}>Edit</button>
                         </tr>
                     {/each}
                 </tbody>
@@ -154,7 +123,7 @@
             border-style: none;
         }
 
-        .select-dateBeginn{
+        .select-dateBegin{
             margin: 2rem 6rem;
             font-family:"Roboto",sans-serif;
             font-weight:300;
