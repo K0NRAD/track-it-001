@@ -50,6 +50,7 @@
         border-inline-color: #11bbaa;
         height:2rem;
         width:15rem;
+        text-align: center;
     }
     
     .inputBox-n{
@@ -57,6 +58,7 @@
         border-inline-color: hsl(141, 53%, 53%);
         height:2rem;
         width:15rem;
+        text-align: center;
     }
     .input-pn{
         margin:  0 0 3rem 0 ;
