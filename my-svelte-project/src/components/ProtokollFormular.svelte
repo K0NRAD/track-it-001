@@ -2,11 +2,12 @@
         import { onMount } from "svelte";
         import LocalStorageApi from "../LocalStorageApi.js";
 
+
         let protokolls = [
-        {date: "07.04.2022", time: "08:30", typ: "P10", designation: "Kommen", pic:""},
-        {date: "07.04.2022", time: "12:00", typ: "P15", designation: "Beginn Pause", pic:""},
-        {date: "07.04.2022", time: "13:00", typ: "P25", designation: "Ende Pause", pic:""},
-        {date: "07.04.2022", time: "16:30", typ: "P20", designation: "Gehen", pic:""}
+        {id: 1, date: "07.04.2022", time: "08:30", typ: "P10", designation: "Kommen", edit:""},
+        {id: 2, date: "07.04.2022", time: "12:00", typ: "P15", designation: "Beginn Pause", edit:""},
+        {id: 3, date: "07.04.2022", time: "13:00", typ: "P25", designation: "Ende Pause", edit:""},
+        {id: 4, date: "07.04.2022", time: "16:30", typ: "P20", designation: "Gehen", edit:""}
         ];
 
 
@@ -14,6 +15,8 @@
         let persnum;
         let time = "";
         let editModus = false;
+        let picture=EDITPICTURE_URI;
+;
 
         onMount(async () => {
 		user = await LocalStorageApi.loadUser();
@@ -35,17 +38,22 @@
 			clearInterval(interval);
 		};
 	});
-   // <img src=https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQXktw6DUv_3pFI96cPYwX1MmfoM-Hmy9Gn5zdn2xeOte_2DyPMQ_3Uk5eVtcU4dQL79e8&usqp=CAU/>
 
+        const EDITPICTURE_URI = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQXktw6DUv_3pFI96cPYwX1MmfoM-Hmy9Gn5zdn2xeOte_2DyPMQ_3Uk5eVtcU4dQL79e8&usqp=CAU";
+        const SAVEPICTURE_URI ="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAmkPtzd5dDHAWTTzBNP1VLfn_qNXuLsN0-HDS4jCYXdW0H8_odYP6wmIoSbS2OGzKrIw&usqp=CAU";
     
-        const editClick = () => {
-            editModus = true;
+
+        const saveClick = () => {
+            if(editModus === false){
+                picture=SAVEPICTURE_URI;
+                editModus = true;
+            }else{
+                picture=EDITPICTURE_URI;
+                editModus = false;
+            }
             
         }
-
-          
-
-
+    
     export {protokolls};
 </script>
 
@@ -93,19 +101,22 @@
                             <td contenteditable={editModus}>{protokoll.time}</td>
                             <td contenteditable={editModus}>{protokoll.typ}</td>
                             <td contenteditable={editModus}>{protokoll.designation}</td>
-                            <button on:click={() => editClick(edit.id)}>Edit</button>
                         </tr>
                     {/each}
                 </tbody>
             </table>
             <div class="buttons">
-                <!-- svelte-ignore missing-declaration -->
+                <button class="btnedit"on:click={() => saveClick()}><img src={picture} alt="saveimage"></button>
                 <button class="btnprint"on:click={print(protokolls)}>Drucken</button>
             </div>
 </div>
     
 <style>
 
+.btnedit {
+            width: 20%;
+            margin-left: 40%;
+        }
     .dropdowns{
         align-self: center;
         align-items: center;
