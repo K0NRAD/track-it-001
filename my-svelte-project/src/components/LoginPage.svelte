@@ -1,15 +1,10 @@
 <script>
-    import WeeklyFormular from "./WeeklyFormular.svelte";
     import LocalStorageApi from "../LocalStorageApi.js";
 
     let status = false;
     let persnum;
     let user;
     let output = "";
-
-    const setTrue = () => {
-        status = true;
-    }
 
     const tryLogin = () => {
         if(user !== "" && persnum !== null && user !== undefined && persnum !== undefined){
@@ -24,11 +19,12 @@
     {output}
     <div class="card">
         <div class="input-field">
+            <div class="place"></div>
             <div class="input-pn">
-                <input placeholder="Enter your personal number" type="text" bind:value={persnum}>
+                <input class="input-num" placeholder="Enter your personal number" type="text" bind:value={persnum}>
             </div>
             <div class="input-n">
-                <input placeholder="Enter your first and lastname" type="text" bind:value={user}>
+                <input class="input-name" placeholder="Enter your first and lastname" type="text" bind:value={user}>
             </div>
                 <button class="btnlogin"on:click={() => tryLogin()}>Log In</button>
         </div>
@@ -37,6 +33,18 @@
 
 <style>
 
+    .input-name {
+        width: 10%;
+        text-align: center;
+    }
+    .input-num {
+        width: 10%;
+        text-align: center;
+    }
+    .place {
+        height: 2rem;
+        width: 100%;
+    }
     .input-pn{
         margin:  0 0 3rem 0 ;
     }
