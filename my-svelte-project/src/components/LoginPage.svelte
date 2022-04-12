@@ -1,15 +1,10 @@
 <script>
-    import WeeklyFormular from "./WeeklyFormular.svelte";
     import LocalStorageApi from "../LocalStorageApi.js";
 
     let status = false;
     let persnum;
     let user;
     let output = "";
-
-    const setTrue = () => {
-        status = true;
-    }
 
     const tryLogin = () => {
         if(user !== "" && persnum !== null && user !== undefined && persnum !== undefined){
@@ -28,10 +23,12 @@
             <p class="txt-personal-number">Personal Number:</p>
             <div class="input-pn">
                 <input class="inputBox-pn" type="text" bind:value={persnum}>
+           
             </div>
             <p class="txt-name">First- and Lastname:</p>
             <div class="input-n">
                 <input class="inputBox-n" type="text" bind:value={user}>
+               
             </div>
                 <button class="btnlogin"on:click={() => tryLogin()}>Log In</button>
         </div>
