@@ -26,7 +26,7 @@
         onMount(() => {
             const interval = setInterval(() => {
                 let today = new Date();
-                if(today.getHours() < 10 && today.getMinutes < 10) time = "0" + today.getHours() + ":" + "0" + today.getMinutes();
+                if(today.getHours() < 10 && today.getMinutes() < 10) time = "0" + today.getHours() + ":" + "0" + today.getMinutes();
                 else if (today.getMinutes() === 0) time = today.getHours() + ":" + "00";
                 else if(today.getHours() < 10) time = "0" + today.getHours() + ":" + today.getMinutes();
                 else if(today.getMinutes() < 10) time = today.getHours() + ":" + "0" + today.getMinutes();
