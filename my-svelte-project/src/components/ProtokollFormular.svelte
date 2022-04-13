@@ -16,7 +16,6 @@
         let time = "";
         let editModus = false;
         let picture=EDITPICTURE_URI;
-;
 
         onMount(async () => {
 		user = await LocalStorageApi.loadUser();
@@ -25,19 +24,15 @@
 
 
         onMount(() => {
-		const interval = setInterval(() => {
-			let today = new Date();
-            if(today.getHours() < 10 && today.getMinutes < 10) time = "0" + today.getHours() + ":" + "0" + today.getMinutes();
-            else if (today.getMinutes() === 0) time = today.getHours() + ":" + "00";
-            else if(today.getHours() < 10) time = "0" + today.getHours() + ":" + today.getMinutes();
-            else if(today.getMinutes() < 10) time = today.getHours() + ":" + "0" + today.getMinutes();
-            else time = today.getHours() + ":" + today.getMinutes();
-		}, 1000);
-
-		return () => {
-			clearInterval(interval);
-		};
-	});
+            const interval = setInterval(() => {
+                let today = new Date();
+                if(today.getHours() < 10 && today.getMinutes < 10) time = "0" + today.getHours() + ":" + "0" + today.getMinutes();
+                else if (today.getMinutes() === 0) time = today.getHours() + ":" + "00";
+                else if(today.getHours() < 10) time = "0" + today.getHours() + ":" + today.getMinutes();
+                else if(today.getMinutes() < 10) time = today.getHours() + ":" + "0" + today.getMinutes();
+                else time = today.getHours() + ":" + today.getMinutes();
+            }, 1000);
+	    });
 
         const EDITPICTURE_URI = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQXktw6DUv_3pFI96cPYwX1MmfoM-Hmy9Gn5zdn2xeOte_2DyPMQ_3Uk5eVtcU4dQL79e8&usqp=CAU";
         const SAVEPICTURE_URI ="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAmkPtzd5dDHAWTTzBNP1VLfn_qNXuLsN0-HDS4jCYXdW0H8_odYP6wmIoSbS2OGzKrIw&usqp=CAU";
@@ -107,6 +102,7 @@
             </table>
             <div class="buttons">
                 <button class="btnedit"on:click={() => saveClick()}><img class="buttonImage" src={picture} alt="saveimage"></button>
+                <!-- svelte-ignore missing-declaration -->
                 <button class="btnprint"on:click={print(protokolls)}>Drucken</button>
             </div>
 </div>

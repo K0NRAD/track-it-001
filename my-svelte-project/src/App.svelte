@@ -9,6 +9,7 @@
 </script>
 
 <Navbar>Your work time calulator</Navbar>
+<Router routes={{"/":LoginPage}}></Router>
 <Router routes={{"/Login":LoginPage}}></Router>
 <Router routes={{"/WeeklyFormular":WeeklyFormular}}></Router>
 <Router routes={{"/DailyOverview":ProtokollFormular}}></Router>
