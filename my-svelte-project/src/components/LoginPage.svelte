@@ -30,7 +30,7 @@
                 <input class="inputBox-n" type="text" bind:value={user}>
                
             </div>
-                <button class="btnlogin"on:click={() => tryLogin()}>Log In</button>
+                <button class="btnlogin button is-rounded is-8 is-medium"on:click={() => tryLogin()}>Log In</button>
         </div>
     </div>
 </div>
@@ -39,7 +39,7 @@
 
     h2{ 
         text-align:center;
-        font-size: 45px;
+        font-size: 300%;
         font-family:"Roboto",sans-serif;
         font-weight:300;
         margin-top: 3rem;
@@ -72,15 +72,17 @@
     }
      .card {
         height:25rem;
-        margin-top: 10rem;
-        margin-left: 40rem;
-        margin-right:40rem;
-        border-radius: 2rem;
+        width:50%;
+        margin-top: 5%;
+        margin-left: 25%;
+        margin-right:40%;
+        margin-bottom:5%;
+        border-radius: 2%;
     }
     .btnlogin{
         background-color:hsl(141, 53%, 53%);
         border-radius: 2em;
-        height:4em;
+        height:2.5em;
         width: 12em;
         margin: 5rem 0 0 0;
         box-sizing: border-box;

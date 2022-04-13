@@ -185,7 +185,7 @@
         font-weight: bold;
         color:black;
         margin-top: 1rem;
-        margin-left: 17%;
+        margin-left: 14.5%;
         user-select: none;
     }
 
@@ -237,7 +237,7 @@
 
     .theadA {
         margin-top: 2rem;
-        font-weight: 300;
+        font-weight: bold;
         font-size: 100%;
         color:rgb(57, 57, 57);
         text-align: center;
@@ -259,17 +259,8 @@
 
     th {
         border-style: none;
-        font-weight: 1000;
         margin: 20px;
         text-align: center;
-    }
-
-    .tf {
-        border-style: none;
-        margin: 20px;
-        text-align: center;
-        font-size: 100%;
-        font-weight: 100;
     }
 
     .buttons {
@@ -280,9 +271,9 @@
     .btnprint {
         background-color: #9611bb;
         border-radius: 2em;
-        height:4em;
-        width: 30%;
-        margin: 2rem;
+        height:2.5em;
+        width: 12em;
+        margin: 5rem 0 0 0;
         box-sizing: border-box;
         display:inline-block;
         padding:0.2em 1.2em;

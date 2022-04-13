@@ -25,6 +25,6 @@
     };
 </script>
 
-<h1 class="title is-3">
+<div>
     {timeOutput}
-</h1>
+</div>
