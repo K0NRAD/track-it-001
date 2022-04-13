@@ -39,8 +39,8 @@
 		};
 	});
 
-        const EDITPICTURE_URI = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQXktw6DUv_3pFI96cPYwX1MmfoM-Hmy9Gn5zdn2xeOte_2DyPMQ_3Uk5eVtcU4dQL79e8&usqp=CAU";
-        const SAVEPICTURE_URI ="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAmkPtzd5dDHAWTTzBNP1VLfn_qNXuLsN0-HDS4jCYXdW0H8_odYP6wmIoSbS2OGzKrIw&usqp=CAU";
+        const EDITPICTURE_URI = "./images/Edit.png";
+        const SAVEPICTURE_URI ="./images/Save.png";
     
 
         const saveClick = () => {
@@ -64,7 +64,7 @@
             {time}
         </div>
         <div class="container">
-            <img class="profile-image" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__480.png" alt="profile-img">
+            <img class="profile-image" src="./images/Profile.png" alt="profile-img">
             <div class="name">
                     {user}
             </div>
@@ -107,6 +107,7 @@
             </table>
             <div class="buttons">
                 <button class="btnedit"on:click={() => saveClick()}><img class="buttonImage" src={picture} alt="saveimage"></button>
+                <!-- svelte-ignore missing-declaration -->
                 <button class="btnprint"on:click={print(protokolls)}>Drucken</button>
             </div>
 </div>
@@ -169,7 +170,7 @@
         font-weight: bold;
         color:black;
         margin-top: 1rem;
-        margin-left: 14%;
+        margin-left: 17%;
         user-select: none;
     }
 

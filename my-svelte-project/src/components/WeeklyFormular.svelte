@@ -45,7 +45,7 @@
             {timeOutput}
         </div>
         <div class="container">
-            <img class="profile-image" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__480.png" alt="profilepic">
+            <img class="profile-image" src="./images/Profile.png" alt="profilepic">
             <div class="name">
                 {user}
             </div>
@@ -93,7 +93,7 @@
         font-weight: bold;
         color:black;
         margin-top: 1rem;
-        margin-left: 14%;
+        margin-left: 17%;
         user-select: none;
     }
 
