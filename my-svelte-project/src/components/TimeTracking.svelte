@@ -1,9 +1,11 @@
 <script>
     import Clock from "./Clock.svelte";
     import {timeRecordsStore} from "../store.js";
+    import LocalStorageApi from "../LocalStorageApi.js";
+    import {onMount} from "svelte";
 
-    export let userID = "123456789";
-    export let userName = "John Doe";
+    let userID;
+    let userName;
     let startWorkTime = "HH:MM";
     let startWorkDate = "TT.MM.JJJJ";
     let isPauseActive = false;
@@ -14,7 +16,10 @@
     let pauseButtonDisabled = true;
     let goButtonDisabled = true;
 
-    
+    onMount(async () => {
+		userName = await LocalStorageApi.loadUser();
+        userID = await LocalStorageApi.loadNum();
+	});
 
     const addTimeRecord = (type) => {
         let time = new Date();
