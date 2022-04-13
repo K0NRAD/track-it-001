@@ -95,56 +95,144 @@
         }
 </script>
     
-<div class="container">
-    <div class="columns">
-        <div class="column is-full ml-2">
+<div>
+    <div class="card">
+        <div class="place"></div>
+        <div class="time">
             <Clock/>
         </div>
+            <div class="container">
+                <img class="profile-image" src="./images/Profile.png" alt="User" />
+                <div class="name">
+                    {userName}
+                </div>
+                <div class="id">
+                    {userID}
+                </div>     
+            </div>    
     </div>
-    <div class="columns">
-        <div class="column is-one-fifth ml-2 c2">
-            <figure class="image is-96x96">
-                <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__480.png" alt="User" />
-            </figure>
-        </div>
-    <span class="column c2">{userID}</span>
-    <span class="column has-text-right mr-2 c2">{userName}</span>
-</div>
-    
-<div class="columns">
-    <span class="column is-one-third ml-2">Arbeitsbeginn</span>
-    <span class="column subtitle">{startWorkDate}</span>
-    <span class="column subtitle has-text-right mr-2">{startWorkTime}</span>
-</div>
-<div class="columns">
-    <span class="column ml-2">Arbeitszeit</span>
-    <span class="column title is-4 mr-2 has-text-right">{secondsToTime(secondsWorktime)}</span>    
-</div>  
-<div class="columns">
-    <span class="column ml-2">Pause</span>   
-    <span class="column is-4 mr-2 has-text-right title is-3">{secondsToMinutes(secondsPause)}</span>
-</div>
-<div class="columns">
-    <div class="column">
-        <button class="button is-primary is-rounded is-fullwidth is-medium"
-                disabled={comeButtonDisabled}
-                on:click={onClickCome}>Kommen</button>
-        </div>   
-        <div class="column">
-        <button class="button is-warning is-rounded is-fullwidth has-text-black is-medium"
-                disabled={pauseButtonDisabled}
-                on:click={onClickPause}>Pause</button>
-        </div>
-        <div class="column">
-        <button class="button is-danger is-rounded is-fullwidth is-medium"
-                disabled={goButtonDisabled}
-                on:click={onClickGo}>Gehen</button>
-        </div>
+    <div class="place"></div>  
+    <div class="card">
+            <div class="place"></div>
+            <div class="columns">
+                <span class="columnLeft column is-one-third ml-2">Arbeitsbeginn</span>
+                <span class="columnLine1 column subtitle">{startWorkDate}</span>
+                <span class="columnLine column subtitle has-text-right mr-2">{startWorkTime}</span>
+            </div>
+            <div class="columns">
+                <span class="columnLeft column ml-2">Arbeitszeit</span>
+                <span class="column title is-4 mr-2 has-text-right">{secondsToTime(secondsWorktime)}</span>    
+            </div>  
+            <div class="columns">
+                <span class="columnLeft column ml-2">Pause</span>   
+                <span class="column is-4 mr-2 has-text-right title is-3">{secondsToMinutes(secondsPause)}</span>
+            </div>
+            <div class="columns">
+                <div class="column">
+                    <button class="btnKommen button is-primary is-rounded is-8 is-medium"
+                            disabled={comeButtonDisabled}
+                            on:click={onClickCome}>Kommen</button>
+                    </div>   
+                    <div class="column">
+                    <button class="btnPause button is-warning is-rounded is-8 has-text-black is-medium"
+                            disabled={pauseButtonDisabled}
+                            on:click={onClickPause}>Pause</button>
+                    </div>
+                    <div class="column">
+                    <button class="btnGehen button is-danger is-rounded is-8 is-medium"
+                            disabled={goButtonDisabled}
+                            on:click={onClickGo}>Gehen</button>
+                    </div>
+             </div>
     </div>
 </div>
-    
 <style>
-    .c2{
-        margin-top: auto;
+
+    .columnLine1{
+        font-weight: bold;
+        border: none;
+        margin-left: 12%;
+    }
+
+    .columnLine{
+        font-weight: bold;
+        border: none;
+    }
+
+    .columnLeft{
+        font-family:"Roboto",sans-serif;
+        font-weight: bold;
+        font-size: 130%;
+        color:rgb(57, 57, 57);
+
+    }
+    .container {
+        align-self: center;
+        align-items: center;
+        width: 100%;
+        height: 250px;
+        border: none;
+        float: center;
+        user-select: none;
+        margin: 0 0 0 7%;
     }    
+    .place {
+        height: 2rem;
+        width: 100%;
+    }
+    .btnKommen{
+        margin-left:40%;
+        width:40%;
+        font-family:"Roboto",sans-serif;
+    }
+
+    .btnPause{
+        margin-left:30%;
+        width:40%;
+        font-family:"Roboto",sans-serif;
+    }
+
+    .btnGehen{
+        margin-left:20%;
+        width:40%;
+        font-family:"Roboto",sans-serif;
+    }
+    .time{
+        font-size: 2rem;
+        font-weight: bold;
+        color:black;
+        margin-top: 1rem;
+        margin-left: 14.5%;
+        user-select: none;
+    }
+    .card {
+        margin: 0 5% 0 5%;
+        border-radius: 2rem;
+    }
+
+    .name {
+        text-align: center;
+        margin: 5% 0 1% 0;
+        font-family:"Roboto",sans-serif;
+        font-weight:300;
+        font-size: 300%;
+        user-select: none;
+        float: right;
+        width: 40%;
+    }
+    .id {
+       margin: 6% 2% 0 0;
+       font-size: 200%;
+       float: right;
+       width: 25%;
+    }
+
+    .profile-image {
+        border-radius: 50%;
+        height: 60% / width;
+        width: 11.5%;
+        margin: 3% 0 0 7%;
+    }
+
+
 </style>
