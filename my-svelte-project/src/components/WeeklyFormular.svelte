@@ -318,11 +318,17 @@
                 </tbody>
             </table>
             <!-- svelte-ignore missing-declaration -->
-            <button
-                class="btnprint button is-rounded is-8 is-medium"
-                on:click={() => print()}>Drucken</button
-            >
-            <div class="place" />
+            <table class="tableButtons">
+                <tbody>
+                    <tr>
+                        <td><button
+                            class="btnprint button is-rounded is-8 is-medium"
+                            on:click={() => print()}>Drucken</button>
+                        </td>
+                    </tr>
+                    <div class="place" />
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
@@ -337,11 +343,24 @@
         user-select: none;
     }
 
+    .select-dateBegin {
+        margin: 0 0 6% 33%;
+        margin-top:1%;
+        font-family: "Roboto", sans-serif;
+        font-weight: 300;
+        font-size: 110%;
+        text-align: left;
+        float: left;
+        height: 180%;
+        width: 20%;
+        border: 10% solid;
+        border-radius: 2rem;
+    }
     .dropdowns {
         align-self: center;
         align-items: center;
         margin-top: 2%;
-        float: center;
+        float: left;
         width: 100%;
         height: 5%;
     }
@@ -372,7 +391,7 @@
         align-self: center;
         align-items: center;
         width: 100%;
-        height: 250px;
+        height: 350px;
         border: none;
         float: center;
         user-select: none;
@@ -421,7 +440,6 @@
         text-align: center;
         user-select: none;
     }
-
     .btnprint {
         background-color: #9611bb;
         border-radius: 2em;
@@ -442,5 +460,10 @@
         transition: all 0.2s;
         align-items: left;
         user-select: none;
+    }
+    .tableButtons {
+        margin-top: 2rem;
+        text-align: right;
+        width: 88%;
     }
 </style>
