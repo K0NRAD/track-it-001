@@ -1,8 +1,9 @@
 <script>
     import Clock from "./Clock.svelte";
-    import {timeRecordsStore} from "../store.js";
+    import { timeRecordsStore } from "../store.js";
     import LocalStorageApi from "../LocalStorageApi.js";
-    import {onMount} from "svelte";
+    import { onMount } from "svelte";
+    import { scale } from "svelte/transition";
 
     let userID;
     let userName;
@@ -17,15 +18,29 @@
     let goButtonDisabled = true;
 
     onMount(async () => {
-		userName = await LocalStorageApi.loadUser();
+        userName = await LocalStorageApi.loadUser();
         userID = await LocalStorageApi.loadNum();
-	});
+    });
 
     const addTimeRecord = (type) => {
         let time = new Date();
         let month = time.getMonth() + 1;
-        let timeOutput = time.getUTCFullYear() + "-" + month + "-" + time.getUTCDate() + "/" + time.getHours() + ":" + time.getMinutes() + ":" + time.getSeconds();
-        $timeRecordsStore = [...$timeRecordsStore, { date: timeOutput, type: type }];
+        let timeOutput =
+            time.getUTCFullYear() +
+            "-" +
+            month +
+            "-" +
+            time.getUTCDate() +
+            "/" +
+            time.getHours() +
+            ":" +
+            time.getMinutes() +
+            ":" +
+            time.getSeconds();
+        $timeRecordsStore = [
+            ...$timeRecordsStore,
+            { date: timeOutput, type: type },
+        ];
     };
 
     const startTimer = () => {
@@ -78,42 +93,46 @@
         return Math.floor(seconds / 60) + " Minuten";
     };
 
-
-
-    const secondsToTime = (seconds) =>{
-    
+    const secondsToTime = (seconds) => {
         let _seconds = seconds % 60;
-        let _minutes = Math.floor(seconds / 60 );
+        let _minutes = Math.floor(seconds / 60);
         let _hours = Math.floor(_minutes / 60);
         _minutes = _minutes % 60;
-        return `${pad(_hours,2)}:${pad(_minutes,2)}:${pad(_seconds,2)}`;
-    }
-        
-        const pad = (num, size) => {
-            let s = "0000000000" + num;    
-            return s.substring(s.length-size);
-        }
+        return `${pad(_hours, 2)}:${pad(_minutes, 2)}:${pad(_seconds, 2)}`;
+    };
+
+    const pad = (num, size) => {
+        let s = "0000000000" + num;
+        return s.substring(s.length - size);
+    };
 </script>
-    
+
 <div>
-    <div class="card">
-        <div class="place"></div>
-        <div class="time">
-            <Clock/>
-        </div>
+    <div in:scale ={{ duration: 1000 }}>
+        <div class="card">
+            <div class="place" />
+            <div class="time">
+                <Clock />
+            </div>
             <div class="container">
-                <img class="profile-image" src="./images/Profile.png" alt="User" />
+                <img
+                    class="profile-image"
+                    src="./images/Profile.png"
+                    alt="User"
+                />
                 <div class="name">
                     {userName}
                 </div>
                 <div class="id">
                     {userID}
-                </div>     
-            </div>    
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="place"></div>  
-    <div class="card">
-            <div class="place"></div>
+    <div class="place" />
+    <div in:scale ={{ duration: 1000 }}>
+        <div class="card">
+            <div class="place" />
             <table class="tableA">
                 <thead class="theadA">
                     <tr>
@@ -123,52 +142,64 @@
                     </tr>
                 </thead>
                 <tbody class="table-body">
-                        <tr>
-                            <th class="tl">Arbeitszeit</th>
-                            <td class="tc"></td>
-                            <td class="tr">{secondsToTime(secondsWorktime)}</td>
-                        </tr>
+                    <tr>
+                        <th class="tl">Arbeitszeit</th>
+                        <td class="tc" />
+                        <td class="tr">{secondsToTime(secondsWorktime)}</td>
+                    </tr>
                 </tbody>
                 <tfoot class="theadA">
                     <tr>
                         <th class="tl">Pause</th>
-                        <td class="tc"></td>
+                        <td class="tc" />
                         <td class="tr">{secondsToMinutes(secondsPause)}</td>
                     </tr>
                 </tfoot>
             </table>
 
-            <table class= tableButtons>
+            <table class="tableButtons">
                 <tbody>
                     <tr>
-                        <td><button class="btnKommen button is-primary is-rounded is-8 is-medium"
-                            disabled={comeButtonDisabled}
-                            on:click={onClickCome}>Kommen</button></td>
-                        <td><button class="btnPause button is-warning is-rounded is-8 has-text-black is-medium"
-                            disabled={pauseButtonDisabled}
-                            on:click={onClickPause}>Pause</button></td>
-                        <td><button class="btnGehen button is-danger is-rounded is-8 is-medium"
-                            disabled={goButtonDisabled}
-                            on:click={onClickGo}>Gehen</button></td>
+                        <td
+                            ><button
+                                class="btnKommen button is-primary is-rounded is-8 is-medium"
+                                disabled={comeButtonDisabled}
+                                on:click={onClickCome}>Kommen</button
+                            ></td
+                        >
+                        <td
+                            ><button
+                                class="btnPause button is-warning is-rounded is-8 has-text-black is-medium"
+                                disabled={pauseButtonDisabled}
+                                on:click={onClickPause}>Pause</button
+                            ></td
+                        >
+                        <td
+                            ><button
+                                class="btnGehen button is-danger is-rounded is-8 is-medium"
+                                disabled={goButtonDisabled}
+                                on:click={onClickGo}>Gehen</button
+                            ></td
+                        >
                     </tr>
-                    <div class="place"></div>
-            </tbody>
+                    <div class="place" />
+                </tbody>
             </table>
+        </div>
     </div>
 </div>
+
 <style>
-
-.tableButtons{
-    margin-top: 2rem;
-    text-align: center;
-    width: 88%;
-
-}
-.theadA {
+    .tableButtons {
+        margin-top: 2rem;
+        text-align: center;
+        width: 88%;
+    }
+    .theadA {
         margin-top: 2rem;
         font-weight: bold;
         font-size: 100%;
-        color:rgb(57, 57, 57);
+        color: rgb(57, 57, 57);
         text-align: center;
         width: 80%;
     }
@@ -177,8 +208,8 @@
         height: 50px;
         width: 80%;
         border: collapse;
-        font-family:"Roboto",sans-serif;
-        font-weight:300;
+        font-family: "Roboto", sans-serif;
+        font-weight: 300;
         font-size: 125%;
         color: rgb(94, 94, 94);
         font-style: bold;
@@ -187,19 +218,19 @@
         user-select: none;
     }
 
-    .tc{
+    .tc {
         text-align: center;
-        font-family:"Roboto",sans-serif;
+        font-family: "Roboto", sans-serif;
         font-weight: 10;
     }
-    .tr{
+    .tr {
         text-align: right;
-        font-family:"Roboto",sans-serif;
+        font-family: "Roboto", sans-serif;
         font-weight: 10;
     }
-    .tl{
+    .tl {
         text-align: left;
-        font-family:"Roboto",sans-serif;
+        font-family: "Roboto", sans-serif;
     }
     th {
         border-style: none;
@@ -219,36 +250,36 @@
         margin: 0 0 0 7%;
         user-select: none;
         position: relative;
-    }    
+    }
     .place {
         height: 2rem;
         width: 100%;
         user-select: none;
     }
-    .btnKommen{
-        margin-left:40%;
-        width:40%;
-        font-family:"Roboto",sans-serif;
+    .btnKommen {
+        margin-left: 40%;
+        width: 40%;
+        font-family: "Roboto", sans-serif;
         user-select: none;
     }
 
-    .btnPause{
-        margin-left:30%;
-        width:40%;
-        font-family:"Roboto",sans-serif;
+    .btnPause {
+        margin-left: 30%;
+        width: 40%;
+        font-family: "Roboto", sans-serif;
         user-select: none;
     }
 
-    .btnGehen{
-        margin-left:20%;
-        width:40%;
-        font-family:"Roboto",sans-serif;
+    .btnGehen {
+        margin-left: 20%;
+        width: 40%;
+        font-family: "Roboto", sans-serif;
         user-select: none;
     }
-    .time{
+    .time {
         font-size: 2rem;
         font-weight: bold;
-        color:black;
+        color: black;
         margin-top: 1rem;
         margin-left: 14.5%;
         user-select: none;
@@ -259,22 +290,22 @@
         user-select: none;
     }
 
-    .name {    
+    .name {
         text-align: left;
         margin: 5% 0 1% 0;
-        font-family:"Roboto",sans-serif;
-        font-weight:300;
+        font-family: "Roboto", sans-serif;
+        font-weight: 300;
         font-size: 300%;
         user-select: none;
         float: right;
         width: 40%;
     }
     .id {
-       margin: 6% 2% 0 0;
-       font-size: 200%;
-       float: right;
-       width: 25%;
-       user-select: none;
+        margin: 6% 2% 0 0;
+        font-size: 200%;
+        float: right;
+        width: 25%;
+        user-select: none;
     }
 
     .profile-image {
@@ -284,6 +315,4 @@
         margin: 3% 0 0 7%;
         user-select: none;
     }
-
-
 </style>
