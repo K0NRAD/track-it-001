@@ -160,27 +160,18 @@
             <table class="tableButtons">
                 <tbody>
                     <tr>
-                        <td
-                            ><button
+                        <td><button
                                 class="btnKommen button is-primary is-rounded is-8 is-medium"
                                 disabled={comeButtonDisabled}
-                                on:click={onClickCome}>Kommen</button
-                            ></td
-                        >
-                        <td
-                            ><button
+                                on:click={onClickCome}>Kommen</button></td>
+                        <td><button
                                 class="btnPause button is-warning is-rounded is-8 has-text-black is-medium"
                                 disabled={pauseButtonDisabled}
-                                on:click={onClickPause}>Pause</button
-                            ></td
-                        >
-                        <td
-                            ><button
+                                on:click={onClickPause}>Pause</button></td>
+                        <td><button
                                 class="btnGehen button is-danger is-rounded is-8 is-medium"
                                 disabled={goButtonDisabled}
-                                on:click={onClickGo}>Gehen</button
-                            ></td
-                        >
+                                on:click={onClickGo}>Gehen</button></td>
                     </tr>
                     <div class="place" />
                 </tbody>

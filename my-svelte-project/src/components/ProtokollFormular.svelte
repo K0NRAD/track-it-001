@@ -158,86 +158,86 @@
 
 <div>
     <div in:scale={{ duration: 1000 }}>
-        <div class="card">
-            <div class="place" />
-            <div class="time">
-                {time}
-            </div>
-            <div class="container">
-                <img
-                    class="profile-image"
-                    src="./images/Profile.png"
-                    alt="profile-img"
-                />
-                <div class="name">
-                    {user}
+            <div class="card">
+                <div class="place" />
+                <div class="time">
+                    {time}
                 </div>
-                <div class="id">
-                    {persnum}
-                </div>
-            </div>
-            <div>
-                <div class="dropdowns">
-                    <input
-                        class="select-dateBegin"
-                        type="date"
-                        name="dateBegin"
-                        bind:value={startDay}
-                        on:input={() => onStart()}
+                <div class="container">
+                    <img
+                        class="profile-image"
+                        src="./images/Profile.png"
+                        alt="profile-img"
                     />
+                    <div class="name">
+                        {user}
+                    </div>
+                    <div class="id">
+                        {persnum}
+                    </div>
+                    <div class="dropdowns">
+                        <input
+                            class="select-dateBegin"
+                            type="date"
+                            name="dateBegin"
+                            bind:value={startDay}
+                            on:input={() => onStart()}
+                        />
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
-<div class="place" />
-<div in:scale={{ duration: 1000 }}>
-    <div class="card">
-        <div class="place" />
-        <table class="tableA">
-            <thead class="theadA">
-                <tr>
-                    <th class="th">Datum</th>
-                    <th class="th">Zeit</th>
-                    <th class="th">Typ</th>
-                    <th class="th">Bezeichnung</th>
-                    <th class="th" />
-                </tr>
-            </thead>
-            <tbody class="table-body">
-                {#each timestamps as timestamp}
+    <div class="place" />
+    <div in:scale={{ duration: 1000 }}>
+        <div class="card">
+            <div class="place" />
+            <table class="tableA">
+                <thead class="theadA">
                     <tr>
-                        <td contenteditable={editModus}>{timestamp.date}</td>
-                        <td contenteditable={editModus}>{timestamp.time}</td>
-                        <td contenteditable={editModus}>{timestamp.typ}</td>
-                        <td contenteditable={editModus}
-                            >{timestamp.designation}</td
-                        >
+                        <th class="th">Datum</th>
+                        <th class="th">Zeit</th>
+                        <th class="th">Typ</th>
+                        <th class="th">Bezeichnung</th>
+                        <th class="th" />
                     </tr>
-                {/each}
-            </tbody>
-        </table>
-        <button class="btnedit" on:click={() => saveClick()}
-            ><img class="buttonImage" src={picture} alt="saveimage" /></button
-        >
-        <!-- svelte-ignore missing-declaration -->
-        <button
-            class="btnprint button is-rounded is-8 is-medium"
-            on:click={print(timestamps)}>Drucken</button
-        >
-        <div class="place" />
+                </thead>
+                <tbody class="table-body">
+                    {#each timestamps as timestamp}
+                        <tr>
+                            <td contenteditable={editModus}>{timestamp.date}</td>
+                            <td contenteditable={editModus}>{timestamp.time}</td>
+                            <td contenteditable={editModus}>{timestamp.typ}</td>
+                            <td contenteditable={editModus}>{timestamp.designation}</td>
+                        </tr>
+                    {/each}
+                </tbody>
+            </table>
+            <button class="btnedit" on:click={() => saveClick()}><img class="buttonImage" src={picture} alt="saveimage" /></button>
+            <!-- svelte-ignore missing-declaration -->
+            <table class="tableButtons">
+                <tbody>
+                    <tr>
+                        <td><button
+                            class="btnprint button is-rounded is-8 is-medium"
+                            on:click={() => print()}>Drucken</button>
+                        </td>
+                    </tr>
+                    <div class="place" />
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 
 <style>
-    .btnprint {
+     .btnprint {
         background-color: #9611bb;
         border-radius: 2em;
         height: 2.5em;
         width: 8em;
         margin: 2rem 0 0 0;
-        margin-top: 0.5rem;
-        margin-left: 70%;
+        margin-top: 1rem;
+        margin-left: 77.5%;
         box-sizing: border-box;
         display: inline-block;
         padding: 0.2em 1.2em;
@@ -249,6 +249,11 @@
         text-align: center;
         transition: all 0.2s;
         align-items: left;
+        user-select: none;
+    }
+    .tableButtons {
+        text-align: right;
+        width: 88%;
     }
     .buttonImage {
         height: 3em;
@@ -256,7 +261,7 @@
     }
     .btnedit {
         margin-top: 2rem;
-        margin-left: 71%;
+        margin-left: 80%;
         border: none;
         width: 10%;
         float: center;
@@ -268,6 +273,7 @@
         align-self: center;
         align-items: center;
         margin-top: 2%;
+        margin-bottom: 10%;
         float: center;
         width: 100%;
         height: 5%;
@@ -278,9 +284,11 @@
         font-weight: 300;
         font-size: 110%;
         text-align: left;
-        border-style: none;
         float: center;
-        width: 18%;
+        height: 180%;
+        width: 20%;
+        border: 10% solid;
+        border-radius: 2rem;
     }
 
     .time {
@@ -316,7 +324,7 @@
         align-self: center;
         align-items: center;
         width: 100%;
-        height: 250px;
+        height: 350px;
         border: none;
         float: center;
         user-select: none;
