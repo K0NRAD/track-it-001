@@ -66,27 +66,22 @@ export {protokolls};
         <div class="id">
                 {persnum}
         </div>
-</div>
-    <div>
-        <div class="dropdowns">
-                <input class="select-kw" type="week" name="kw">
+        <div class="dropdown">
                 <input class="select-dateBegin" type="date" name="dateBegin">
-                <input class="select-dateEnd" type="date" name="dateEnd">
-              </div>
         </div>
     </div>
 </div>
     <div class="place"></div>
     <div class="card">
         <div class="place"></div>
-        <table class="tableA" id="productTable">
+        <table class="tableA">
             <thead class="theadA">
                 <tr>
-                    <th>Datum</th>
-                    <th>Zeit</th>
-                    <th>Typ</th>
-                    <th>Bezeichnung</th>
-                    <th></th>
+                    <th class="th">Datum</th>
+                    <th class="th">Zeit</th>
+                    <th class="th">Typ</th>
+                    <th class="th">Bezeichnung</th>
+                    <th class="th"></th>
                 </tr>
             </thead>
             <tbody class="table-body">
@@ -100,28 +95,23 @@ export {protokolls};
                 {/each}
             </tbody>
         </table>
-            <div class="borderBtnEdit">
             <button class="btnedit"on:click={() => saveClick()}><img class="buttonImage" src={picture} alt="saveimage"></button>
-            </div>
             <!-- svelte-ignore missing-declaration -->
             <button class="btnprint button is-rounded is-8 is-medium"on:click={print(protokolls)}>Drucken</button>
-
+            <div class="place"></div>
+        </div>
 </div>
 
 <style>
 
-.borderBtnEdit{
-    align-items: left;
-}
 .btnprint {
     background-color: #9611bb;
     border-radius: 2em;
     height:2.5em;
-    width: 12em;
+    width: 8em;
     margin: 2rem 0 0 0;
     margin-top: 0.5rem;
-    margin-bottom: 5%;
-    margin-left: 60%;
+    margin-left: 70%;
     box-sizing: border-box;
     display:inline-block;
     padding:0.2em 1.2em;
@@ -135,54 +125,35 @@ export {protokolls};
     align-items: left;
 }
 .buttonImage {
-    height: 4em;
-    width: 100%;
+    height: 3em;
+    width: 30%;
 }
 .btnedit {
+    margin-top:  2rem;
+    margin-left: 71%;
     border: none;
     width: 10%;
     float: center;
     height: 4em;
     background-color: transparent;
 }
-.dropdowns{
-    align-self: center;
-    align-items: center;
-    margin-top: 2%;
-    float: center;
-    width: 100%;
-    height: 5%;
-}
-.select-kw{
-    margin: 0 0 3% 14%;
-    font-family:"Roboto",sans-serif;
-    font-weight:300;
-    font-size: 110%;
-    text-align: left;
-    border-style: none;
-    float: left;
-    width: 22%;
-}
 
+.dropdown{
+        align-self: center;
+        align-items: center;
+        margin-top: 2%;
+        float: center;
+        width: 100%;
+        height: 5%;
+    }
 .select-dateBegin{
-    margin: 0 0 3% 10%;
+    margin: 0 0 6% 33%;
     font-family:"Roboto",sans-serif;
     font-weight:300;
     font-size: 110%;
     text-align: left;
     border-style: none;
     float: center;
-    width: 18%;
-}
-
-.select-dateEnd{
-    margin: 0 15% 3% 0;
-    font-family:"Roboto",sans-serif;
-    font-weight:300;
-    font-size: 110%;
-    text-align: left;
-    float: right;
-    border-style: none;
     width: 18%;
 }
 
@@ -196,7 +167,7 @@ export {protokolls};
 }
 
 .name {
-    text-align: center;
+    text-align: left;
     margin: 5% 0 1% 0;
     font-family:"Roboto",sans-serif;
     font-weight:300;
