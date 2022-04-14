@@ -16,7 +16,9 @@
 </script>
 
 <div>
+    <div class="output">
     {output}
+    </div>
     <div class="card">
         <h2>Login</h2>
         <div class="input-field">
@@ -37,12 +39,21 @@
 
 <style>
 
+    .output{
+        text-align: center;
+        font-family:"Roboto",sans-serif;
+        font-weight:10%;
+        color: hsl(141, 53%, 53%);
+        text-decoration-line: black;
+        user-select: none;
+    }
     h2{ 
         text-align:center;
         font-size: 300%;
         font-family:"Roboto",sans-serif;
-        font-weight:300;
+        font-weight: 300%;
         margin-top: 3rem;
+        user-select: none;
     }
 
     .inputBox-pn{
@@ -51,6 +62,7 @@
         height:2rem;
         width:15rem;
         text-align: center;
+        user-select: none;
     }
     
     .inputBox-n{
@@ -59,25 +71,30 @@
         height:2rem;
         width:15rem;
         text-align: center;
+        user-select: none;
     }
     .input-pn{
         margin:  0 0 3rem 0 ;
+        user-select: none;
     }
     .input-n{
         position:relative;
+        user-select: none;
     }
     .input-field{
         text-align: center;
         margin: 0.5rem 0 0 0;
+        user-select: none;
     }
      .card {
         height:25rem;
         width:50%;
-        margin-top: 5%;
+        margin-top: 8%;
         margin-left: 25%;
         margin-right:40%;
         margin-bottom:5%;
         border-radius: 2%;
+        user-select: none;
     }
     .btnlogin{
         background-color:hsl(141, 53%, 53%);
@@ -95,5 +112,6 @@
         text-shadow: 0 0.04em 0.04em ;
         text-align:center;
         transition: all 0.2s;
+        user-select: none;
     }
 </style>

@@ -114,58 +114,100 @@
     <div class="place"></div>  
     <div class="card">
             <div class="place"></div>
-            <div class="columns">
-                <span class="columnLeft column is-one-third ml-2">Arbeitsbeginn</span>
-                <span class="columnLine1 column subtitle">{startWorkDate}</span>
-                <span class="columnLine column subtitle has-text-right mr-2">{startWorkTime}</span>
-            </div>
-            <div class="columns">
-                <span class="columnLeft column ml-2">Arbeitszeit</span>
-                <span class="column title is-4 mr-2 has-text-right">{secondsToTime(secondsWorktime)}</span>    
-            </div>  
-            <div class="columns">
-                <span class="columnLeft column ml-2">Pause</span>   
-                <span class="column is-4 mr-2 has-text-right title is-3">{secondsToMinutes(secondsPause)}</span>
-            </div>
-            <div class="columns">
-                <div class="column">
-                    <button class="btnKommen button is-primary is-rounded is-8 is-medium"
+            <table class="tableA">
+                <thead class="theadA">
+                    <tr>
+                        <th class="tl">Arbeitsbeginn</th>
+                        <td class="tc">{startWorkDate}</td>
+                        <td class="tr">{startWorkTime}</td>
+                    </tr>
+                </thead>
+                <tbody class="table-body">
+                        <tr>
+                            <th class="tl">Arbeitszeit</th>
+                            <td class="tc"></td>
+                            <td class="tr">{secondsToTime(secondsWorktime)}</td>
+                        </tr>
+                </tbody>
+                <tfoot class="theadA">
+                    <tr>
+                        <th class="tl">Pause</th>
+                        <td class="tc"></td>
+                        <td class="tr">{secondsToMinutes(secondsPause)}</td>
+                    </tr>
+                </tfoot>
+            </table>
+
+            <table class= tableButtons>
+                <tbody>
+                    <tr>
+                        <td><button class="btnKommen button is-primary is-rounded is-8 is-medium"
                             disabled={comeButtonDisabled}
-                            on:click={onClickCome}>Kommen</button>
-                    </div>   
-                    <div class="column">
-                    <button class="btnPause button is-warning is-rounded is-8 has-text-black is-medium"
+                            on:click={onClickCome}>Kommen</button></td>
+                        <td><button class="btnPause button is-warning is-rounded is-8 has-text-black is-medium"
                             disabled={pauseButtonDisabled}
-                            on:click={onClickPause}>Pause</button>
-                    </div>
-                    <div class="column">
-                    <button class="btnGehen button is-danger is-rounded is-8 is-medium"
+                            on:click={onClickPause}>Pause</button></td>
+                        <td><button class="btnGehen button is-danger is-rounded is-8 is-medium"
                             disabled={goButtonDisabled}
-                            on:click={onClickGo}>Gehen</button>
-                    </div>
-             </div>
+                            on:click={onClickGo}>Gehen</button></td>
+                    </tr>
+                    <div class="place"></div>
+            </tbody>
+            </table>
     </div>
 </div>
 <style>
 
-    .columnLine1{
-        font-weight: bold;
-        border: none;
-        margin-left: 12%;
-    }
+.tableButtons{
+    margin-top: 2rem;
+    text-align: center;
+    width: 88%;
 
-    .columnLine{
+}
+.theadA {
+        margin-top: 2rem;
         font-weight: bold;
-        border: none;
-    }
-
-    .columnLeft{
-        font-family:"Roboto",sans-serif;
-        font-weight: bold;
-        font-size: 130%;
+        font-size: 100%;
         color:rgb(57, 57, 57);
-
+        text-align: center;
+        width: 80%;
     }
+
+    .tableA {
+        height: 50px;
+        width: 80%;
+        border: collapse;
+        font-family:"Roboto",sans-serif;
+        font-weight:300;
+        font-size: 125%;
+        color: rgb(94, 94, 94);
+        font-style: bold;
+        margin: 2rem auto 0 auto;
+        text-align: center;
+        user-select: none;
+    }
+
+    .tc{
+        text-align: center;
+        font-family:"Roboto",sans-serif;
+        font-weight: 10;
+    }
+    .tr{
+        text-align: right;
+        font-family:"Roboto",sans-serif;
+        font-weight: 10;
+    }
+    .tl{
+        text-align: left;
+        font-family:"Roboto",sans-serif;
+    }
+    th {
+        border-style: none;
+        margin: 20px;
+        text-align: center;
+        user-select: none;
+    }
+
     .container {
         align-self: center;
         align-items: center;
@@ -175,27 +217,33 @@
         float: center;
         user-select: none;
         margin: 0 0 0 7%;
+        user-select: none;
+        position: relative;
     }    
     .place {
         height: 2rem;
         width: 100%;
+        user-select: none;
     }
     .btnKommen{
         margin-left:40%;
         width:40%;
         font-family:"Roboto",sans-serif;
+        user-select: none;
     }
 
     .btnPause{
         margin-left:30%;
         width:40%;
         font-family:"Roboto",sans-serif;
+        user-select: none;
     }
 
     .btnGehen{
         margin-left:20%;
         width:40%;
         font-family:"Roboto",sans-serif;
+        user-select: none;
     }
     .time{
         font-size: 2rem;
@@ -208,10 +256,11 @@
     .card {
         margin: 0 5% 0 5%;
         border-radius: 2rem;
+        user-select: none;
     }
 
-    .name {
-        text-align: center;
+    .name {    
+        text-align: left;
         margin: 5% 0 1% 0;
         font-family:"Roboto",sans-serif;
         font-weight:300;
@@ -225,6 +274,7 @@
        font-size: 200%;
        float: right;
        width: 25%;
+       user-select: none;
     }
 
     .profile-image {
@@ -232,6 +282,7 @@
         height: 60% / width;
         width: 11.5%;
         margin: 3% 0 0 7%;
+        user-select: none;
     }
 
 

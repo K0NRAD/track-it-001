@@ -262,10 +262,9 @@
                 {/each}
             </tbody>
         </table>
-        <div class="buttons">
             <!-- svelte-ignore missing-declaration -->
-            <button class="btnprint" on:click={() => print()}>Drucken</button>
-        </div>  
+            <button class="btnprint button is-rounded is-8 is-medium" on:click={() => print()}>Drucken</button>
+            <div class="place"></div>
     </div>
 </div>
 
@@ -280,8 +279,28 @@
         user-select: none;
     }
 
+    .dropdowns{
+        align-self: center;
+        align-items: center;
+        margin-top: 2%;
+        float: center;
+        width: 100%;
+        height: 5%;
+    }
+
+    .select-kw{
+        margin: 0 0 6% 33%;
+        font-family:"Roboto",sans-serif;
+        font-weight:300;
+        font-size: 110%;
+        text-align: left;
+        border-style: none;
+        float: center;
+        width: 18%;
+    }
+
     .name {
-        text-align: center;
+        text-align: left;
         margin: 5% 0 1% 0;
         font-family:"Roboto",sans-serif;
         font-weight:300;
@@ -319,6 +338,7 @@
         height: 60% / width;
         width: 11.5%;
         margin: 3% 0 0 7%;
+        user-select: none;
     }
 
     .card {
@@ -346,25 +366,26 @@
         font-style: bold;
         margin: 2rem auto 0 auto;
         text-align: center;
+        user-select: none;
     }
 
     th {
         border-style: none;
         margin: 20px;
         text-align: center;
+        user-select: none;
     }
 
-    .buttons {
-        width: 40%;
-        margin-left: 80%;
-    }
+
 
     .btnprint {
         background-color: #9611bb;
         border-radius: 2em;
         height:2.5em;
-        width: 12em;
-        margin: 5rem 0 0 0;
+        width: 8em;
+        margin: 2rem 0 0 0;
+        margin-top: 2rem;
+        margin-left: 77.5%;
         box-sizing: border-box;
         display:inline-block;
         padding:0.2em 1.2em;
@@ -375,5 +396,7 @@
         text-shadow: 0 0.04em 0.04em ;
         text-align:center;
         transition: all 0.2s;
+        align-items: left;
+        user-select: none;
     }
 </style>

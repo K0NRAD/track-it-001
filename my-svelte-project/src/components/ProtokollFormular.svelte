@@ -157,14 +157,14 @@
     <div class="place"></div>
     <div class="card">
         <div class="place"></div>
-        <table class="tableA" id="productTable">
+        <table class="tableA">
             <thead class="theadA">
                 <tr>
-                    <th>Datum</th>
-                    <th>Zeit</th>
-                    <th>Typ</th>
-                    <th>Bezeichnung</th>
-                    <th></th>
+                    <th class="th">Datum</th>
+                    <th class="th">Zeit</th>
+                    <th class="th">Typ</th>
+                    <th class="th">Bezeichnung</th>
+                    <th class="th"></th>
                 </tr>
             </thead>
             <tbody class="table-body">
@@ -178,28 +178,23 @@
                 {/each}
             </tbody>
         </table>
-            <div class="borderBtnEdit">
             <button class="btnedit"on:click={() => saveClick()}><img class="buttonImage" src={picture} alt="saveimage"></button>
-            </div>
             <!-- svelte-ignore missing-declaration -->
-            <button class="btnprint button is-rounded is-8 is-medium"on:click={print(timestamps)}>Drucken</button>
-
+            <button class="btnprint button is-rounded is-8 is-medium"on:click={print(protokolls)}>Drucken</button>
+            <div class="place"></div>
+        </div>
 </div>
 
 <style>
 
-.borderBtnEdit{
-    align-items: left;
-}
 .btnprint {
     background-color: #9611bb;
     border-radius: 2em;
     height:2.5em;
-    width: 12em;
+    width: 8em;
     margin: 2rem 0 0 0;
     margin-top: 0.5rem;
-    margin-bottom: 5%;
-    margin-left: 60%;
+    margin-left: 70%;
     box-sizing: border-box;
     display:inline-block;
     padding:0.2em 1.2em;
@@ -213,27 +208,29 @@
     align-items: left;
 }
 .buttonImage {
-    height: 4em;
-    width: 100%;
+    height: 3em;
+    width: 30%;
 }
 .btnedit {
+    margin-top:  2rem;
+    margin-left: 71%;
     border: none;
     width: 10%;
     float: center;
     height: 4em;
     background-color: transparent;
 }
-.dropdowns{
-    align-self: center;
-    align-items: center;
-    margin-top: 2%;
-    float: center;
-    width: 100%;
-    height: 5%;
-}
 
+.dropdowns{
+        align-self: center;
+        align-items: center;
+        margin-top: 2%;
+        float: center;
+        width: 100%;
+        height: 5%;
+    }
 .select-dateBegin{
-    margin: 0 auto 3% 35%;
+    margin: 0 0 6% 33%;
     font-family:"Roboto",sans-serif;
     font-weight:300;
     font-size: 110%;
@@ -253,7 +250,7 @@
 }
 
 .name {
-    text-align: center;
+    text-align: left;
     margin: 5% 0 1% 0;
     font-family:"Roboto",sans-serif;
     font-weight:300;
