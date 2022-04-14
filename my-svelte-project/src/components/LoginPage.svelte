@@ -2,7 +2,6 @@
     import LocalStorageApi from "../LocalStorageApi.js";
     import { scale } from "svelte/transition";
 
-    let status = false;
     let persnum;
     let user;
     let output = "";

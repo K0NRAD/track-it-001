@@ -1,9 +1,3 @@
-<script>
-    import LoginPage from "./LoginPage.svelte";
-
-    let form;
-</script>
-
 <selection class="hero is-success welcome is-small">
     <div class="hero-body">
         <div class="container">
