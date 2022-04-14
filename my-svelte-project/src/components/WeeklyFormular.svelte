@@ -2,6 +2,8 @@
     import { onMount } from 'svelte';
     import LocalStorageApi from "../LocalStorageApi.js";
     import { timeRecordsStore } from "../store.js";
+
+
     let editedText;
 
     const CheckForLength = (text, operator) => {
@@ -25,19 +27,17 @@
                 char = 0;
                 check = 0;
             }
-
         }
         if(editedText[editedText.length - 2] === operator){
             editedText = editedText.substring(0, editedText.length - 1) + "0" + editedText.substring(editedText.length - 1, editedText.length);
         }
+        if(parseInt(editedText.substring(0,2)) < 10) {
+            editedText = "0" + editedText;
+        }
     }
 
 
-    let startWeek = "2022-4-11";
-    let dayTwo = startWeek.substring(0, 8) + ( parseInt(startWeek.substring(8, startWeek.length)) + 1 );
-    let dayThree = startWeek.substring(0, 8) + ( parseInt(startWeek.substring(8, startWeek.length)) + 2 );
-    let dayFour = startWeek.substring(0, 8) + ( parseInt(startWeek.substring(8, startWeek.length)) + 3 );
-    let endWeek = "2022-4-15";
+    let startWeek;
     let EntryDay;
     let EntryStartTime;
     let EntryEndTime;
@@ -46,61 +46,133 @@
     let breakTimeStart;
     let breakTimeEnd;
     let timestamps = [];
+    let timeRecord;
     let timeRecords;
+    let weekDays;
+    let allDays;
 
-    
-    timeRecords = $timeRecordsStore.filter(t=>t.date.substring(0, 9) !== startWeek || t.date.substring(0, 9) !== dayTwo || t.date.substring(0, 9) !== dayThree || t.date.substring(0, 9) !== dayFour || t.date.substring(0, 9) !== endWeek);
-    
+    const getAllDays = () => {
+        let weekDaysString = weekDays.toString();
+        weekDaysString = (parseInt(weekDaysString.substring(6,8)) + 1);
+        let weekDay = weekDays.substring(0,6) + weekDaysString;
+        allDays = parseDates(weekDay);
+        for(let i = 0; i < allDays.length; i++) {
+            let day = allDays[i].toString().substring(8, 10);
+            let monthAsString = allDays[i].toString().substring(4,7);
+            let year = weekDays.substring(0,4);
+            let month;
+            switch(monthAsString) {
+                case "Jan":
+                    month = "1";
+                    break;
+                case "Feb":
+                    month = "2";
+                    break;
+                case "Mar":
+                    month = "3";
+                    break;
+                case "Apr":
+                    month = "4";
+                    break;
+                case "May":
+                    month = "5";
+                    break;
+                case "Jun":
+                    month = "6";
+                    break;
+                case "Jul":
+                    month = "7";
+                    break;
+                case "Aug":
+                    month = "8";
+                    break;
+                case "Sep":
+                    month = "9";
+                    break;
+                case "Oct": 
+                    month = "10";
+                    break;
+                case "Nov":
+                    month = "11";
+                    break;
+                case "Dec":
+                    month = "12";
+                    break;
+                default:
+                    month = "";
+                    break;
+            }
+            allDays[i] = year + "-" + month + "-" + day;
+        }
+        return allDays;
+    }
 
-    try {
-        for(let j = 0; j < timeRecords.length; j = j + 4){
-            let timeRecord = [
-                timeRecords[j],
-                timeRecords[j+1],
-                timeRecords[j+2],
-                timeRecords[j+3]
-            ];
-            console.log(timeRecord);
-
-            for(let i = 0; i < 4; i++) {
-                if(i === 0) {
-                    CheckForLength(timeRecord[i].date.substring(0, 10), "-");
-                    EntryDay = editedText.substring(0, 10);
-                    CheckForLength(timeRecord[i].date.substring(10, 18), ":")
-                    console.log(timeRecord[i].date.substring(10, 18));
-                    EntryStartTime = editedText.substring(0, 8);
-                } else if(i === 1) {
-                    CheckForLength(timeRecord[i].date.substring(10, 18), ":")
-                    breakTimeStart = editedText.substring(0, 8);
-                } else if(i === 2) {
-                    CheckForLength(timeRecord[i].date.substring(10, 18), ":")
-                    breakTimeEnd = editedText.substring(0, 8);
-                    CheckForLength(parseInt(breakTimeEnd.substring(0, 2)) - parseInt(breakTimeStart.substring(0, 2)) + ":" + (parseInt(breakTimeEnd.substring(4, 6)) - parseInt(breakTimeStart.substring(4, 6))) + ":" + (parseInt(breakTimeEnd.substring(6, 8)) - parseInt(breakTimeStart.substring(6, 8))), ":");
-                    EntryBreakTime = editedText;
-                }
-                else if(i === 3) {
-                    CheckForLength(timeRecord[i].date.substring(10, 18), ":")
-                    EntryEndTime = editedText.substring(0, 8);
-                    CheckForLength(((parseInt(EntryEndTime.substring(0, 2)) - parseInt(EntryStartTime.substring(0, 2))) - (parseInt(breakTimeEnd.substring(0, 2)) - parseInt(breakTimeStart.substring(0, 2)))) + ":" + ((parseInt(EntryEndTime.substring(4, 6)) - parseInt(EntryStartTime.substring(4, 6))) - (parseInt(breakTimeEnd.substring(4, 6)) - parseInt(breakTimeStart.substring(4, 6)))) + ":" + ((parseInt(EntryEndTime.substring(6, 8)) - parseInt(EntryStartTime.substring(6, 8))) - (parseInt(breakTimeEnd.substring(6, 8)) - parseInt(breakTimeStart.substring(6, 8)))), ":");
-                    EntryWorkTime = editedText;
+        const onStart = () => {
+            let days = getAllDays();
+            let timeRecords = $timeRecordsStore.filter(t=>t.date.substring(0,9) !== startWeek);
+            timestamps = [];
+            let validTimeRecords = [];
+            for(let k = 0; k < days.length; k++) {
+                for(let h = 0; h < timeRecords.length; h++){
+                    CheckForLength(timeRecords[h].date.substring(0,9), "-");
+                    let checkDate = editedText;
+                    CheckForLength(days[k], "-");
+                    let formatedDate = editedText;
+                    if(formatedDate === checkDate) {
+                        validTimeRecords = [
+                            ...validTimeRecords,
+                            timeRecords[h]
+                        ];
+                    }
                 }
             }
-            timestamps = [
-                ...timestamps,
-                {date: EntryDay, start: EntryStartTime, end: EntryEndTime, workTime: EntryWorkTime, break: EntryBreakTime}
-            ];
+            // console.log(timeRecords);
+            //console.log(validTimeRecords);
+
+            for(let j = 0; j < validTimeRecords.length; j = j + 4){
+                timeRecord = [
+                    validTimeRecords[j],
+                    validTimeRecords[j+1],
+                    validTimeRecords[j+2],
+                    validTimeRecords[j+3]
+                ];
+                console.log(timeRecord);
+            
+                for(let i = 0; i < 4; i++) {
+                    if(i === 0) {
+                        CheckForLength(timeRecord[i].date.substring(0, 10), "-");
+                        EntryDay = editedText.substring(0, 10);
+                        CheckForLength(timeRecord[i].date.substring(10, 18), ":")
+                        EntryStartTime = editedText.substring(0, 8);
+                    } else if(i === 1) {
+                        CheckForLength(timeRecord[i].date.substring(10, 18), ":")
+                        breakTimeStart = editedText.substring(0, 8);
+                    } else if(i === 2) {
+                        CheckForLength(timeRecord[i].date.substring(10, 18), ":")
+                        breakTimeEnd = editedText.substring(0, 8);
+                        CheckForLength(parseInt(breakTimeEnd.substring(0, 2)) - parseInt(breakTimeStart.substring(0, 2)) + ":" + (parseInt(breakTimeEnd.substring(4, 6)) - parseInt(breakTimeStart.substring(4, 6))) + ":" + (parseInt(breakTimeEnd.substring(6, 8)) - parseInt(breakTimeStart.substring(6, 8))), ":");
+                        EntryBreakTime = editedText;
+                    }
+                    else if(i === 3) {
+                        CheckForLength(timeRecord[i].date.substring(10, 18), ":")
+                        EntryEndTime = editedText.substring(0, 8);
+                        CheckForLength(((parseInt(EntryEndTime.substring(0, 2)) - parseInt(EntryStartTime.substring(0, 2))) - (parseInt(breakTimeEnd.substring(0, 2)) - parseInt(breakTimeStart.substring(0, 2)))) + ":" + ((parseInt(EntryEndTime.substring(4, 6)) - parseInt(EntryStartTime.substring(4, 6))) - (parseInt(breakTimeEnd.substring(4, 6)) - parseInt(breakTimeStart.substring(4, 6)))) + ":" + ((parseInt(EntryEndTime.substring(6, 8)) - parseInt(EntryStartTime.substring(6, 8))) - (parseInt(breakTimeEnd.substring(6, 8)) - parseInt(breakTimeStart.substring(6, 8)))), ":");
+                        EntryWorkTime = editedText;
+                    }
+                }
+                timestamps = [
+                    ...timestamps,
+                    {date: EntryDay, start: EntryStartTime, end: EntryEndTime, workTime: EntryWorkTime, break: EntryBreakTime}
+                ];
+            }
         }
-    } catch {
-        timestamps = [];
-    }  
-    console.log(timestamps);
+        
 
     let timeOutput = "";
     let user;
     let persnum;
 
     onMount(async () => {
-        console.log(timeRecords);
 		user = await LocalStorageApi.loadUser();
         persnum = await LocalStorageApi.loadNum();
 	});
@@ -119,6 +191,22 @@
 			clearInterval(interval);
 		};
 	});
+
+
+    let parseDates = (inp) => {
+        let year = parseInt(inp.slice(0,4), 10);
+        let week = parseInt(inp.slice(6), 10);
+        let day = (1 + (week - 1) * 7); // 1st of January + 7 days for each week
+        let dayOffset = new Date(year, 0, 1).getDay(); // we need to know at what day of the week the year start
+
+        dayOffset--;  // depending on what day you want the week to start increment or decrement this value. This should make the week start on a monday
+
+        let days = [];
+
+        for (let i = 0; i < 7; i++) // do this 7 times, once for every day
+            days.push(new Date(year, 0, day - dayOffset + i)); // add a new Date object to the array with an offset of i days relative to the first day of the week
+        return days;
+    }
 </script>
 
 <div>
@@ -135,8 +223,8 @@
             <div class="id">
                 {persnum}
             </div>
-            <div class="dropdown">
-                <input class="select-kw" type="week" name="kw">
+            <div class="dropdowns">
+                <input class="select-dateBegin" type="week" name="dateBegin" bind:value={weekDays} on:input={() => onStart()}>
             </div>
         </div>
     </div>
@@ -191,7 +279,7 @@
         user-select: none;
     }
 
-    .dropdown{
+    .dropdowns{
         align-self: center;
         align-items: center;
         margin-top: 2%;

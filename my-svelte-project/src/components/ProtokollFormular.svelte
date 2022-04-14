@@ -1,32 +1,110 @@
 <script>
     import { onMount } from "svelte";
     import LocalStorageApi from "../LocalStorageApi.js";
-
-
-    let protokolls = [
-    {id: 1, date: "07.04.2022", time: "08:30", typ: "P10", designation: "Kommen", edit:""},
-    {id: 2, date: "07.04.2022", time: "12:00", typ: "P15", designation: "Beginn Pause", edit:""},
-    {id: 3, date: "07.04.2022", time: "13:00", typ: "P25", designation: "Ende Pause", edit:""},
-    {id: 4, date: "07.04.2022", time: "16:30", typ: "P20", designation: "Gehen", edit:""}
-    ];
-
+    import { timeRecordsStore } from "../store.js";
 
     let user;
     let persnum;
     let time = "";
     let editModus = false;
     let picture=EDITPICTURE_URI;
+    let EntryType;
+    let EntryDesignation;
+    let timestamps = [];
+    let entryDay;
+    let EntryStartTime;
+    let startDay;
+   
 
     onMount(async () => {
     user = await LocalStorageApi.loadUser();
     persnum = await LocalStorageApi.loadNum();
     });
 
+    const checkForLength = (text, operator) => {
+        let check = 0;
+        let char = 0;
+        let editedText;
+
+        for(let i = 0; i < text.length; i++) {
+            if(text[i] === operator) {
+                check++;
+            }
+            if(check === 1 && text[i] !== operator){
+                char++;
+            }
+            if(check ===  2 && char < 2) {
+                editedText = text.substring(0, i-1) + "0" + text.substring(i-1, text.length);
+                char = 0;
+                check = 0;
+            }
+            if(check === 2 && char === 2) {
+                editedText = text;
+                char = 0;
+                check = 0;
+            }
+
+        }
+        if(editedText[editedText.length - 2] === operator){
+            editedText = editedText.substring(0, editedText.length - 1) + "0" + editedText.substring(editedText.length - 1, editedText.length);
+        }
+        return editedText;
+    }
+
+    const onStart = () => {
+        let timeRecords = $timeRecordsStore.filter(t=>t.date.substring(0,9) !== startDay);
+        timestamps = [];
+        let validTimeRecords = [];
+        for(let i = 0; i < timeRecords.length; i++) {
+            let checkDate = checkForLength(timeRecords[i].date.substring(0,9), "-");
+            if(startDay === checkDate) {
+                validTimeRecords = [
+                    ...validTimeRecords,
+                    timeRecords[i]
+                ];
+            }
+        }
+
+            for(let j = 0; j < validTimeRecords.length; j = j + 4){
+                let timeRecord = [
+                    validTimeRecords[j],
+                    validTimeRecords[j+1],
+                    validTimeRecords[j+2],
+                    validTimeRecords[j+3]
+                ];
+
+            for(let i = 0; i < 4; i++) {
+                if(i === 0) {
+                    entryDay = checkForLength(timeRecord[i].date.substring(0, 10), "-").substring(0, 10);
+                    EntryType = timeRecord[i].type;
+                    EntryDesignation = "Kommen";
+                    EntryStartTime = checkForLength(timeRecord[i].date.substring(10, 18), ":").substring(0, 8);
+                } else if(i === 1) {
+                    EntryType = timeRecord[i].type;
+                    EntryDesignation = "Beginn Pause";
+                    EntryStartTime = checkForLength(timeRecord[i].date.substring(10, 18), ":").substring(0, 8);
+                } else if(i === 2) {
+                    EntryType = timeRecord[i].type;
+                    EntryDesignation = "Ende Pause";
+                    EntryStartTime = checkForLength(timeRecord[i].date.substring(10, 18), ":").substring(0, 8);
+                }
+                else if(i === 3) {
+                    EntryType = timeRecord[i].type;
+                    EntryDesignation = "Gehen";
+                    EntryStartTime = checkForLength(timeRecord[i].date.substring(10, 18), ":").substring(0, 8);
+                }
+                timestamps = [
+                ...timestamps,
+                {date: entryDay, time: EntryStartTime, typ: EntryType, designation: EntryDesignation}
+                ];
+            }
+        }
+    }
 
     onMount(() => {
         const interval = setInterval(() => {
             let today = new Date();
-            if(today.getHours() < 10 && today.getMinutes < 10) time = "0" + today.getHours() + ":" + "0" + today.getMinutes();
+            if(today.getHours() < 10 && today.getMinutes() < 10) time = "0" + today.getHours() + ":" + "0" + today.getMinutes();
             else if (today.getMinutes() === 0) time = today.getHours() + ":" + "00";
             else if(today.getHours() < 10) time = "0" + today.getHours() + ":" + today.getMinutes();
             else if(today.getMinutes() < 10) time = today.getHours() + ":" + "0" + today.getMinutes();
@@ -49,7 +127,9 @@
         
     }
 
-export {protokolls};
+
+    
+
 </script>
 
 <div>
@@ -66,8 +146,11 @@ export {protokolls};
         <div class="id">
                 {persnum}
         </div>
-        <div class="dropdown">
-                <input class="select-dateBegin" type="date" name="dateBegin">
+</div>
+    <div>
+        <div class="dropdowns">
+                <input class="select-dateBegin" type="date" name="dateBegin" bind:value={startDay} on:input={() => onStart()}>
+              </div>
         </div>
     </div>
 </div>
@@ -85,12 +168,12 @@ export {protokolls};
                 </tr>
             </thead>
             <tbody class="table-body">
-                {#each protokolls as protokoll}
+                {#each timestamps as timestamp}
                     <tr>
-                        <td contenteditable={editModus}>{protokoll.date}</td>
-                        <td contenteditable={editModus}>{protokoll.time}</td>
-                        <td contenteditable={editModus}>{protokoll.typ}</td>
-                        <td contenteditable={editModus}>{protokoll.designation}</td>
+                        <td contenteditable={editModus}>{timestamp.date}</td>
+                        <td contenteditable={editModus}>{timestamp.time}</td>
+                        <td contenteditable={editModus}>{timestamp.typ}</td>
+                        <td contenteditable={editModus}>{timestamp.designation}</td>
                     </tr>
                 {/each}
             </tbody>
@@ -138,7 +221,7 @@ export {protokolls};
     background-color: transparent;
 }
 
-.dropdown{
+.dropdowns{
         align-self: center;
         align-items: center;
         margin-top: 2%;
