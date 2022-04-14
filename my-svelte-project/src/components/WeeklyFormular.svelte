@@ -130,15 +130,13 @@
                 }
             }
         }
-        // console.log(timeRecords);
-        //console.log(validTimeRecords);
 
         for (let j = 0; j < validTimeRecords.length; j = j + 4) {
             timeRecord = [
-                validTimeRecords[j],
-                validTimeRecords[j + 1],
-                validTimeRecords[j + 2],
-                validTimeRecords[j + 3],
+                validTimeRecords[j], // P10
+                validTimeRecords[j + 1],  //P15
+                validTimeRecords[j + 2], //P25
+                validTimeRecords[j + 3] //P20
             ];
             console.log(timeRecord);
 
@@ -196,8 +194,8 @@
                     start: EntryStartTime,
                     end: EntryEndTime,
                     workTime: EntryWorkTime,
-                    break: EntryBreakTime,
-                },
+                    break: EntryBreakTime
+                }
             ];
         }
     };
