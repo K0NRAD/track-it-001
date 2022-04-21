@@ -1,4 +1,4 @@
-<script>
+<script> 
     import { onMount } from "svelte";
     import LocalStorageApi from "../LocalStorageApi.js";
     import { timeRecordsStore } from "../store.js";
@@ -6,12 +6,14 @@
 
     let user;
     let persnum;
+    let timerecords;
     let time = "";
     let editModus = false;
     let picture = EDITPICTURE_URI;
     let EntryType;
     let EntryDesignation;
     let timestamps = [];
+    let timeRecord;
     let entryDay;
     let EntryStartTime;
     let startDay;
@@ -19,6 +21,7 @@
     onMount(async () => {
         user = await LocalStorageApi.loadUser();
         persnum = await LocalStorageApi.loadNum();
+        saveEdits = await LocalStorageApi.loadSaveEdits();
     });
 
     const checkForLength = (text, operator) => {
@@ -71,61 +74,66 @@
                 validTimeRecords = [...validTimeRecords, timeRecords[i]];
             }
         }
-
+      
         for (let j = 0; j < validTimeRecords.length; j = j + 4) {
-            let timeRecord = [
-                validTimeRecords[j],
-                validTimeRecords[j + 1],
-                validTimeRecords[j + 2],
-                validTimeRecords[j + 3],
+            timeRecord = [
+                validTimeRecords[j], // P10
+                validTimeRecords[j + 1],  //P15
+                validTimeRecords[j + 2], //P25
+                validTimeRecords[j + 3], //P20
             ];
 
-            for (let i = 0; i < 4; i++) {
-                if (i === 0) {
-                    entryDay = checkForLength(
-                        timeRecord[i].date.substring(0, 10),
-                        "-"
-                    ).substring(0, 10);
-                    EntryType = timeRecord[i].type;
-                    EntryDesignation = "Kommen";
-                    EntryStartTime = checkForLength(
-                        timeRecord[i].date.substring(10, 18),
-                        ":"
-                    ).substring(0, 8);
-                } else if (i === 1) {
-                    EntryType = timeRecord[i].type;
-                    EntryDesignation = "Beginn Pause";
-                    EntryStartTime = checkForLength(
-                        timeRecord[i].date.substring(10, 18),
-                        ":"
-                    ).substring(0, 8);
-                } else if (i === 2) {
-                    EntryType = timeRecord[i].type;
-                    EntryDesignation = "Ende Pause";
-                    EntryStartTime = checkForLength(
-                        timeRecord[i].date.substring(10, 18),
-                        ":"
-                    ).substring(0, 8);
-                } else if (i === 3) {
-                    EntryType = timeRecord[i].type;
-                    EntryDesignation = "Gehen";
-                    EntryStartTime = checkForLength(
-                        timeRecord[i].date.substring(10, 18),
-                        ":"
-                    ).substring(0, 8);
-                }
-                timestamps = [
-                    ...timestamps,
-                    {
-                        date: entryDay,
-                        time: EntryStartTime,
-                        typ: EntryType,
-                        designation: EntryDesignation,
-                    },
-                ];
+
+           console.log(timeRecords);
+
+    
+                for (let i = 0; i < 4; i++) {
+                            entryDay = checkForLength(
+                                timeRecord[i].date.substring(0, 10),
+                                "-"
+                            ).substring(0, 10);
+                            if(timeRecord[i].type === "P10") {
+                            EntryType = timeRecord[i].type;
+                            EntryDesignation = "Kommen";
+                            EntryStartTime = checkForLength(
+                                timeRecord[i].date.substring(10, 18),
+                                ":"
+                            ).substring(0, 8);
+                        } else if(timeRecord[i].type === "P15"){
+                            EntryType = timeRecord[i].type;
+                            EntryDesignation = "Beginn Pause";
+                            EntryStartTime = checkForLength(
+                                timeRecord[i].date.substring(10, 18),
+                                ":"
+                            ).substring(0, 8);
+                        } else if(timeRecord[i].type === "P25"){
+                            EntryType = timeRecord[i].type;
+                            EntryDesignation = "Ende Pause";
+                            EntryStartTime = checkForLength(
+                                timeRecord[i].date.substring(10, 18),
+                                ":"
+                            ).substring(0, 8);
+                        } else if(timeRecord[i].type === "P20"){
+                            EntryType = timeRecord[i].type;
+                            EntryDesignation = "Gehen";
+                            EntryStartTime = checkForLength(
+                                timeRecord[i].date.substring(10, 18),
+                                ":"
+                            ).substring(0, 8);
+                    }
+                    timestamps = [
+                        ...timestamps,
+                        {
+                            date: entryDay,
+                            time: EntryStartTime,
+                            typ: EntryType,
+                            designation: EntryDesignation
+                        },
+                    ];
             }
         }
     };
+
 
     onMount(() => {
         const interval = setInterval(() => {
@@ -136,7 +144,7 @@
                 time = today.getHours() + ":" + "00";
             else if (today.getHours() < 10)
                 time = "0" + today.getHours() + ":" + today.getMinutes();
-            else if (today.getMinutes() < 10)
+            else if (today.getMinutes() <10)
                 time = today.getHours() + ":" + "0" + today.getMinutes();
             else time = today.getHours() + ":" + today.getMinutes();
         }, 1000);
@@ -145,7 +153,9 @@
     const EDITPICTURE_URI = "./images/Edit.png";
     const SAVEPICTURE_URI = "./images/Save.png";
 
-    const saveClick = () => {
+
+
+    const editClick = () => {
         if (editModus === false) {
             picture = SAVEPICTURE_URI;
             editModus = true;
@@ -154,6 +164,10 @@
             editModus = false;
         }
     };
+
+
+    
+
 </script>
 
 <div>
@@ -191,7 +205,7 @@
     <div in:scale={{ duration: 1000 }}>
         <div class="card">
             <div class="place" />
-            <table class="tableA">
+            <table class="tableA" id="myTable">
                 <thead class="theadA">
                     <tr>
                         <th class="th">Datum</th>
@@ -212,7 +226,7 @@
                     {/each}
                 </tbody>
             </table>
-            <button class="btnedit" on:click={() => saveClick()}><img class="buttonImage" src={picture} alt="saveimage" /></button>
+            <button class="btnedit" on:click={() => editClick()}><img class="buttonImage" src={picture} alt="editImage" /></button>
             <!-- svelte-ignore missing-declaration -->
             <table class="tableButtons">
                 <tbody>
@@ -279,6 +293,8 @@
         height: 5%;
     }
     .select-dateBegin {
+        padding-left: 1rem;
+        padding-right: 1rem;
         margin: 0 0 6% 33%;
         font-family: "Roboto", sans-serif;
         font-weight: 300;
