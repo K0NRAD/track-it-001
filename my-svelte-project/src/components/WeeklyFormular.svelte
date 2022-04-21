@@ -5,43 +5,6 @@
     import { scale } from "svelte/transition";
 
     let editedText;
-
-    const CheckForLength = (text, operator) => {
-        let check = 0;
-        let char = 0;
-
-        for (let i = 0; i < text.length; i++) {
-            if (text[i] === operator) {
-                check++;
-            }
-            if (check === 1 && text[i] !== operator) {
-                char++;
-            }
-            if (check === 2 && char < 2) {
-                editedText =
-                    text.substring(0, i - 1) +
-                    "0" +
-                    text.substring(i - 1, text.length);
-                char = 0;
-                check = 0;
-            }
-            if (check === 2 && char === 2) {
-                editedText = text;
-                char = 0;
-                check = 0;
-            }
-        }
-        if (editedText[editedText.length - 2] === operator) {
-            editedText =
-                editedText.substring(0, editedText.length - 1) +
-                "0" +
-                editedText.substring(editedText.length - 1, editedText.length);
-        }
-        if (parseInt(editedText.substring(0, 2)) < 10) {
-            editedText = "0" + editedText;
-        }
-    };
-
     let startWeek;
     let EntryDay;
     let EntryStartTime;
@@ -52,9 +15,26 @@
     let breakTimeEnd;
     let timestamps = [];
     let timeRecord;
-    let timeRecords;
     let weekDays;
     let allDays;
+    let secondsPerDay = 24 * 60 * 60;
+
+    
+    const CheckForLength = (text, seperator) => {
+        let tokens = text.split(seperator);
+        if (seperator === "-") {
+            editedText = `${pad(parseInt(tokens[0]), 4)}-${pad(
+                parseInt(tokens[1]),
+                2
+            )}-${pad(parseInt(tokens[2]), 2)}`;
+        } else {
+            editedText = `${pad(parseInt(tokens[0]), 2)}:${pad(
+                parseInt(tokens[1]),
+                2
+            )}:${pad(parseInt(tokens[2]), 2)}`;
+        }
+        return editedText;
+    };
 
     const getAllDays = () => {
         let weekDaysString = weekDays.toString();
@@ -121,10 +101,8 @@
         let validTimeRecords = [];
         for (let k = 0; k < days.length; k++) {
             for (let h = 0; h < timeRecords.length; h++) {
-                CheckForLength(timeRecords[h].date.substring(0, 9), "-");
-                let checkDate = editedText;
-                CheckForLength(days[k], "-");
-                let formatedDate = editedText;
+                let checkDate = CheckForLength(getDateFromDateTime(timeRecords[h].date), "-");
+                let formatedDate = CheckForLength(days[k], "-");
                 if (formatedDate === checkDate) {
                     validTimeRecords = [...validTimeRecords, timeRecords[h]];
                 }
@@ -138,7 +116,6 @@
                 validTimeRecords[j + 2], //P25
                 validTimeRecords[j + 3] //P20
             ];
-            console.log(timeRecord);
 
             for (let i = 0; i < 4; i++) {
                 if (i === 0) {
@@ -152,39 +129,41 @@
                 } else if (i === 2) {
                     CheckForLength(timeRecord[i].date.substring(10, 18), ":");
                     breakTimeEnd = editedText.substring(0, 8);
-                    CheckForLength(
-                        parseInt(breakTimeEnd.substring(0, 2)) -
-                            parseInt(breakTimeStart.substring(0, 2)) +
-                            ":" +
-                            (parseInt(breakTimeEnd.substring(4, 6)) -
-                                parseInt(breakTimeStart.substring(4, 6))) +
-                            ":" +
-                            (parseInt(breakTimeEnd.substring(6, 8)) -
-                                parseInt(breakTimeStart.substring(6, 8))),
-                        ":"
-                    );
-                    EntryBreakTime = editedText;
+
+                    /* 02      23 */
+
+                    let breakTimeEndSeconds = timeToSeconds(breakTimeEnd);
+                    let breakTimeStartSeconds = timeToSeconds(breakTimeStart);
+                    let breakTimeSeconds;
+                    if (breakTimeEndSeconds < breakTimeStartSeconds) {
+                        breakTimeSeconds =
+                            secondsPerDay -
+                            (breakTimeStartSeconds - breakTimeEndSeconds);
+                    } else {
+                        breakTimeSeconds =
+                            breakTimeEndSeconds - breakTimeStartSeconds;
+                    }
+
+                    EntryBreakTime = secondsToTime(breakTimeSeconds);
+                    
                 } else if (i === 3) {
-                    CheckForLength(timeRecord[i].date.substring(10, 18), ":");
-                    EntryEndTime = editedText.substring(0, 8);
-                    CheckForLength(
-                        parseInt(EntryEndTime.substring(0, 2)) -
-                            parseInt(EntryStartTime.substring(0, 2)) -
-                            (parseInt(breakTimeEnd.substring(0, 2)) -
-                                parseInt(breakTimeStart.substring(0, 2))) +
-                            ":" +
-                            (parseInt(EntryEndTime.substring(4, 6)) -
-                                parseInt(EntryStartTime.substring(4, 6)) -
-                                (parseInt(breakTimeEnd.substring(4, 6)) -
-                                    parseInt(breakTimeStart.substring(4, 6)))) +
-                            ":" +
-                            (parseInt(EntryEndTime.substring(6, 8)) -
-                                parseInt(EntryStartTime.substring(6, 8)) -
-                                (parseInt(breakTimeEnd.substring(6, 8)) -
-                                    parseInt(breakTimeStart.substring(6, 8)))),
-                        ":"
-                    );
-                    EntryWorkTime = editedText;
+                    EntryEndTime = timeRecord[i].date.substring(10, 18);
+                    EntryEndTime = CheckForLength(EntryEndTime, ":");
+                    let entryBreakTimeSeconds = timeToSeconds(EntryBreakTime);
+                    let entryStartTimeSeconds = timeToSeconds(EntryStartTime);
+                    let entryEndTimeSeconds = timeToSeconds(EntryEndTime);
+                    let entryWorkTimeSeconds;
+
+                    if (entryStartTimeSeconds > entryEndTimeSeconds) {
+                        entryWorkTimeSeconds =
+                            secondsPerDay -
+                            ((entryEndTimeSeconds - EntryStartTime) -
+                            entryBreakTimeSeconds);
+                    } else {
+                        entryWorkTimeSeconds =
+                            (entryEndTimeSeconds - entryStartTimeSeconds) - entryBreakTimeSeconds;
+                    }
+                    EntryWorkTime = secondsToTime(entryWorkTimeSeconds);
                 }
             }
             timestamps = [
@@ -195,10 +174,46 @@
                     end: EntryEndTime,
                     workTime: EntryWorkTime,
                     break: EntryBreakTime
-                }
+                },
             ];
         }
     };
+
+    const timeToSeconds = (timeString) => {
+        let tokens = timeString.split(":");
+        let seconds = parseInt(tokens[2]);
+        seconds += parseInt(tokens[1]) * 60;
+        seconds += parseInt(tokens[0]) * 3600;
+        return seconds;
+    };
+    const secondsToTime = (seconds) => {
+        let second = seconds % 60;
+        let minute = ((seconds - second) / 60) % 60;
+        let hour = (seconds - second - minute * 60) / 36000;
+        let formatedTime = `${pad(hour, 2)}:${pad(minute, 2)}:${pad(
+            second,
+            2
+        )}`;
+        console.log(formatedTime);
+        return formatedTime;
+    };
+
+    const pad = (num, size) => {
+        num = num.toString();
+        while (num.length < size) {
+            num = "0" + num;
+        }
+        return num;
+    };
+
+    const getTimeFromDateTime = (dateTime) => {
+        return dateTime.split("/")[1];
+    };
+
+    const getDateFromDateTime = (dateTime) => {
+        return dateTime.split("/")[0];
+    }
+
 
     let timeOutput = "";
     let user;
@@ -247,10 +262,31 @@
             days.push(new Date(year, 0, day - dayOffset + i)); // add a new Date object to the array with an offset of i days relative to the first day of the week
         return days;
     };
+
+    const mySplit = (text, seperator) => {
+        let tokens = [];
+        let token = "";
+
+        for (let i = 0; i < text.length; i++) {
+            let chr = text.substring(i, i + 1);
+            if (chr === seperator) {
+                tokens.push(token);
+                token = "";
+            } else {
+                token = token + chr;
+            }
+        }
+        if (token.length > 0) {
+            tokens.push(token);
+        }
+        return tokens;
+    };
+
+    console.log(mySplit("" + "-" + "" + "-" + "" + "-" + "-4-4-4-", "-"));
 </script>
 
 <div>
-    <div in:scale ={{ duration: 1000 }}>
+    <div in:scale={{ duration: 1000 }}>
         <div class="card">
             <div class="place" />
             <div class="time">
@@ -281,7 +317,7 @@
         </div>
     </div>
     <div class="place" />
-    <div in:scale ={{ duration: 1000 }}>
+    <div in:scale={{ duration: 1000 }}>
         <div class="card">
             <div class="place" />
             <table class="tableA">
@@ -319,9 +355,11 @@
             <table class="tableButtons">
                 <tbody>
                     <tr>
-                        <td><button
-                            class="btnprint button is-rounded is-8 is-medium"
-                            on:click={() => print()}>Drucken</button>
+                        <td
+                            ><button
+                                class="btnprint button is-rounded is-8 is-medium"
+                                on:click={() => print()}>Drucken</button
+                            >
                         </td>
                     </tr>
                     <div class="place" />
@@ -342,8 +380,10 @@
     }
 
     .select-dateBegin {
+        padding-left: 1rem;
+        padding-right: 1rem;
         margin: 0 0 6% 33%;
-        margin-top:1%;
+        margin-top: 1%;
         font-family: "Roboto", sans-serif;
         font-weight: 300;
         font-size: 110%;

@@ -80,7 +80,7 @@
         let time = new Date();
         startWorkTime = time.getHours() + ":" + time.getMinutes();
         startWorkDate =
-            time.getDate() + "." + time.getMonth() + "." + time.getFullYear();
+            time.getDate() + "." + (time.getMonth() +1) + "." + time.getFullYear();
 
         addTimeRecord("P10");
         interval = startTimer();
