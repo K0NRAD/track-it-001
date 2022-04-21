@@ -1,8 +1,51 @@
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
+<script>
+
+
+    let isActive = "";
+    let angle="fa-angle-down"
+
+
+    const dropdownHandler = () => {
+      if(isActive === ""){
+        isActive = "is-active";
+        angle="fa-angle-up";
+      }else{
+        isActive = "";
+        angle="fa-angle-down";
+      }
+    }
+  
+    const logOut = () => {
+      window.localStorage.clear();
+      location.reload();
+    };
+
+</script>
+
 <selection class="hero is-success welcome is-small">
     <div class="hero-body">
         <div class="container">
             <h1 class="title">Track IT</h1>
             <h2 class="subtitle"><slot></slot></h2>
+            <div class="dropdown {isActive} is-right">
+              <div class="dropdown-trigger">
+                <button class="button is-rounded" on:click={dropdownHandler} aria-haspopup="true" aria-controls="dropdown-menu3">
+                  <span>Menu</span>
+                  <span class="icon is-small">
+                    <i class="fas {angle} " aria-hidden="true"></i>
+                  </span>
+                </button>
+              </div>
+              <div class="dropdown-menu" id="dropdown-menu3" role="menu">
+                <div class="dropdown-content">
+                  <a href="/#/Login" class="dropdown-item" on:click={logOut}>
+                    Log out
+                  </a>
+                </div>
+              </div>
+            </div>
         </div>
     </div>
 </selection>
@@ -20,3 +63,11 @@
         </div>
     </div>
 </div>
+
+<style>
+    .dropdown{
+      float: right;
+      margin-bottom: 3rem;
+    }
+
+</style>

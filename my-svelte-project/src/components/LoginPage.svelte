@@ -6,6 +6,7 @@
     let user;
     let output = "";
 
+
     const tryLogin = () => {
         if (
             user !== "" &&
@@ -26,25 +27,25 @@
     </div>
     <div in:scale ={{ duration: 1000 }}>
         <div class="card">
-            <h2>Login</h2>
-            <div class="input-field">
-                <p class="txt-personal-number">Personal Number:</p>
-                <div class="input-pn">
-                    <input
-                        class="inputBox-pn"
-                        type="text"
-                        bind:value={persnum}
-                    />
+                <h2>Login</h2>
+                <div class="input-field">
+                    <p class="txt-personal-number">Personal Number:</p>
+                    <div class="input-pn">
+                        <input
+                            class="inputBox-pn"
+                            type="text"
+                            bind:value={persnum}
+                        />
+                    </div>
+                    <p class="txt-name">First- and Lastname:</p>
+                    <div class="input-n">
+                        <input class="inputBox-n" type="text" bind:value={user} />
+                    </div>
+                    <button
+                        class="btnlogin button is-rounded is-8 is-medium"
+                        on:click={() => tryLogin()}>Log In</button>
                 </div>
-                <p class="txt-name">First- and Lastname:</p>
-                <div class="input-n">
-                    <input class="inputBox-n" type="text" bind:value={user} />
-                </div>
-                <button
-                    class="btnlogin button is-rounded is-8 is-medium"
-                    on:click={() => tryLogin()}>Log In</button
-                >
-            </div>
+            <div/>
         </div>
     </div>
 </div>
@@ -63,7 +64,7 @@
         font-size: 300%;
         font-family: "Roboto", sans-serif;
         font-weight: 300%;
-        margin-top: 3rem;
+        margin-top: 5rem;
         user-select: none;
     }
 
@@ -97,14 +98,14 @@
         margin: 0.5rem 0 0 0;
         user-select: none;
     }
-    .card {
-        height: 25rem;
+    .card{
+        height: 30rem;
         width: 50%;
         margin-top: 8%;
         margin-left: 25%;
         margin-right: 40%;
         margin-bottom: 5%;
-        border-radius: 2%;
+        border-radius: 2rem;
         user-select: none;
     }
     .btnlogin {

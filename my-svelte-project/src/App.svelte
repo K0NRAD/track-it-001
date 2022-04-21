@@ -7,6 +7,8 @@
     import Navbar from "./components/Navbar.svelte";
     import Router from "svelte-spa-router";
     import "../node_modules/bulma/css/bulma.min.css";
+    import { library } from '@fortawesome/fontawesome-svg-core';
+ 
 </script>
 
 <Navbar>Your work time calulator</Navbar>
