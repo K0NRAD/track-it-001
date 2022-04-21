@@ -333,10 +333,10 @@
                 <tfoot class="theadA">
                     <tr>
                         <th class="tf">YYYY-MM-DD</th>
-                        <th class="tf">HH-MM-SS</th>
-                        <th class="tf">HH-MM-SS</th>
-                        <th class="tf">HH-MM-SS</th>
-                        <th class="tf">HH-MM-SS</th>
+                        <th class="tf">HH:MM:SS</th>
+                        <th class="tf">HH:MM:SS</th>
+                        <th class="tf">HH:MM:SS</th>
+                        <th class="tf">HH:MM:SS</th>
                     </tr>
                 </tfoot>
                 <tbody class="table-body">

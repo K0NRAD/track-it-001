@@ -17,46 +17,35 @@
     let entryDay;
     let EntryStartTime;
     let startDay;
+    let editedText;
 
     onMount(async () => {
         user = await LocalStorageApi.loadUser();
         persnum = await LocalStorageApi.loadNum();
-        saveEdits = await LocalStorageApi.loadSaveEdits();
     });
 
-    const checkForLength = (text, operator) => {
-        let check = 0;
-        let char = 0;
-        let editedText;
-
-        for (let i = 0; i < text.length; i++) {
-            if (text[i] === operator) {
-                check++;
-            }
-            if (check === 1 && text[i] !== operator) {
-                char++;
-            }
-            if (check === 2 && char < 2) {
-                editedText =
-                    text.substring(0, i - 1) +
-                    "0" +
-                    text.substring(i - 1, text.length);
-                char = 0;
-                check = 0;
-            }
-            if (check === 2 && char === 2) {
-                editedText = text;
-                char = 0;
-                check = 0;
-            }
-        }
-        if (editedText[editedText.length - 2] === operator) {
-            editedText =
-                editedText.substring(0, editedText.length - 1) +
-                "0" +
-                editedText.substring(editedText.length - 1, editedText.length);
+    const checkForLength = (text, seperator) => {
+        let tokens = text.split(seperator);
+        if (seperator === "-") {
+            editedText = `${pad(parseInt(tokens[0]), 4)}-${pad(
+                parseInt(tokens[1]),
+                2
+            )}-${pad(parseInt(tokens[2]), 2)}`;
+        } else {
+            editedText = `${pad(parseInt(tokens[0]), 2)}:${pad(
+                parseInt(tokens[1]),
+                2
+            )}:${pad(parseInt(tokens[2]), 2)}`;
         }
         return editedText;
+    };
+
+    const pad = (num, size) => {
+        num = num.toString();
+        while (num.length < size) {
+            num = "0" + num;
+        }
+        return num;
     };
 
     const onStart = () => {
