@@ -1,22 +1,22 @@
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 
 <script>
 import LocalStorageApi from "../LocalStorageApi.js";
 import { timeRecordsStore } from "../store.js";
+import Icon from '@iconify/svelte';
 
 
 
     let isActive = "";
-    let angle="fa-angle-down"
+    let angle="fa:angle-down"
 
 
     const dropdownHandler = () => {
       if(isActive === ""){
         isActive = "is-active";
-        angle="fa-angle-up";
+        angle="fa:angle-up";
       }else{
         isActive = "";
-        angle="fa-angle-down";
+        angle="fa:angle-down";
       }
     }
   
@@ -39,7 +39,7 @@ import { timeRecordsStore } from "../store.js";
                 <button class="button is-rounded" on:click={dropdownHandler} aria-haspopup="true" aria-controls="dropdown-menu3">
                   <span>Menu</span>
                   <span class="icon is-small">
-                    <i class="fas {angle} " aria-hidden="true"></i>
+                    <Icon icon="{angle}" aria-hidden="true" />
                   </span>
                 </button>
               </div>
