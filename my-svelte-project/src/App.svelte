@@ -7,6 +7,7 @@
     import Navbar from "./components/Navbar.svelte";
     import Router from "svelte-spa-router";
     import "../node_modules/bulma/css/bulma.min.css";
+    import Icon from '@iconify/svelte';
  
 </script>
 
