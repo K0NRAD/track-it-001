@@ -8,7 +8,7 @@
     let userID;
     let userName;
     let startWorkTime = "HH:MM";
-    let startWorkDate = "TT.MM.JJJJ";
+    let startWorkDate = "DD-MM-YYYY";
     let isPauseActive = false;
     let secondsWorktime = 0;
     let secondsPause = 0;
@@ -16,11 +16,20 @@
     let comeButtonDisabled = false;
     let pauseButtonDisabled = true;
     let goButtonDisabled = true;
+    let editedText;
 
     onMount(async () => {
         userName = await LocalStorageApi.loadUser();
         userID = await LocalStorageApi.loadNum();
     });
+
+    const pad = (num, size) => {
+        num = num.toString();
+        while (num.length < size) {
+            num = "0" + num;
+        }
+        return num;
+    };
 
     const addTimeRecord = (type) => {
         let time = new Date();
@@ -73,14 +82,38 @@
         pauseButtonDisabled = true;
         comeButtonDisabled = false;
         startWorkTime = "HH:MM";
-        startWorkDate = "TT.MM.JJJJ";
+        startWorkDate = "DD-MM-YYYY";
     };
+    const CheckForLength = (text, seperator) => {
+        let tokens = text.split(seperator);
+        if (seperator === "-") {
+            editedText = `${pad(parseInt(tokens[0]), 4)}-${pad(
+                parseInt(tokens[1]),
+                2
+            )}-${pad(parseInt(tokens[2]), 2)}`;
+
+        }else if(seperator === "."){
+            editedText = `${pad(parseInt(tokens[0]), 2)}-${pad(
+                parseInt(tokens[1]),
+                2
+            )}-${pad(parseInt(tokens[2]), 2)}`;
+            
+        } else {
+            editedText = `${pad(parseInt(tokens[0]), 2)}:${pad(
+                parseInt(tokens[1]),
+                2
+            )}:${pad(parseInt(tokens[2]), 2)}`;
+        }
+        return editedText;
+    };
+    
 
     const onClickCome = () => {
         let time = new Date();
         startWorkTime = time.getHours() + ":" + time.getMinutes();
         startWorkDate =
             time.getDate() + "." + (time.getMonth() +1) + "." + time.getFullYear();
+        startWorkDate = CheckForLength(startWorkDate, ".");
 
         addTimeRecord("P10");
         interval = startTimer();
@@ -88,7 +121,7 @@
         pauseButtonDisabled = false;
         goButtonDisabled = false;
     };
-
+    
     const secondsToMinutes = (seconds) => {
         return Math.floor(seconds / 60) + " Minuten";
     };
@@ -101,10 +134,7 @@
         return `${pad(_hours, 2)}:${pad(_minutes, 2)}:${pad(_seconds, 2)}`;
     };
 
-    const pad = (num, size) => {
-        let s = "0000000000" + num;
-        return s.substring(s.length - size);
-    };
+
 </script>
 
 <div>
