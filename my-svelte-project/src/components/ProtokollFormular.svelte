@@ -149,17 +149,60 @@
             picture = SAVEPICTURE_URI;
             editModus = true;
         } else {
+            saveEdits();
             picture = EDITPICTURE_URI;
             editModus = false;
         }
     };
+
+    let TR;
+    const saveEdits = () => {
+        let table, tr, editElem, userVersion = [], i, j;
+        table    = document.getElementById("mytable");
+        tr       = table.getElementsByClassName("output"); //element
+        TR = tr;
+        //console.log(tr);
+        for (i=0; i< tr.length; i++) {    
+                // This will set a key value pair where key as row number and value as the inner HTML
+                // This key will further help us updating the values from localhost
+                    userVersion[tr[i].sectionRowIndex] = tr[i].getElementsByTagName("td")[3].innerHTML;
+                    $timeRecordsStore = userVersion;
+                    userVersion = [
+                            ...$timeRecordsStore,
+                            { date: timeOutput, type: type },
+                      ];
+        }
+        console.log(userVersion);
+        localStorage.setItem('userEdits', JSON.stringify(userVersion));
+    };
+
+   const checkEdits = () => {
+        try{
+        let userEdits = localStorage.getItem("userEdits");
+
+        console.log(JSON.parse(userEdits));
+
+        if (userEdits) {
+            userEdits = JSON.parse(userEdits);
+            table    = document.getElementById("mytable");
+            tr       = table.getElementsByClassName("output"); //element
+
+            for ( var elementId in userEdits ) {
+                    tr[elementId].getElementsByTagName("td")[3].innerHTML = userEdits[elementId];
+            }
+        }
+        }catch{
+        //console.log("Hello");
+        }
+    }
+
 
 
     
 
 </script>
 
-<div>
+<div on:load={() =>checkEdits()}>
     <div in:scale={{ duration: 1000 }}>
             <div class="card">
                 <div class="place" />
@@ -194,7 +237,7 @@
     <div in:scale={{ duration: 1000 }}>
         <div class="card">
             <div class="place" />
-            <table class="tableA" id="myTable">
+            <table class="tableA" id="mytable">
                 <thead class="theadA">
                     <tr>
                         <th class="th">Datum</th>
@@ -206,7 +249,7 @@
                 </thead>
                 <tbody class="table-body">
                     {#each timestamps as timestamp}
-                        <tr>
+                        <tr class="output">
                             <td contenteditable={editModus}>{timestamp.date}</td>
                             <td contenteditable={editModus}>{timestamp.time}</td>
                             <td contenteditable={editModus}>{timestamp.typ}</td>
@@ -224,6 +267,12 @@
                             class="btnprint button is-rounded is-8 is-medium"
                             on:click={() => print()}>Drucken</button>
                         </td>
+                    </tr>                  
+                    <tr>
+                        <td><button
+                            class="btnsend button is-rounded is-8 is-medium"
+                            on:click={() => send()}>Senden</button>
+                        </td>
                     </tr>
                     <div class="place" />
                 </tbody>
@@ -235,6 +284,28 @@
 <style>
      .btnprint {
         background-color: #9611bb;
+        border-radius: 2em;
+        height: 2.5em;
+        width: 8em;
+        margin: 2rem 0 0 0;
+        margin-top: 1rem;
+        margin-left: 77.5%;
+        box-sizing: border-box;
+        display: inline-block;
+        padding: 0.2em 1.2em;
+        text-decoration: none;
+        font-family: "Roboto", sans-serif;
+        font-weight: 300;
+        color: #ffffff;
+        text-shadow: 0 0.04em 0.04em;
+        text-align: center;
+        transition: all 0.2s;
+        align-items: left;
+        user-select: none;
+    }
+
+    .btnsend {
+        background-color: rgb(75, 194, 36);
         border-radius: 2em;
         height: 2.5em;
         width: 8em;
