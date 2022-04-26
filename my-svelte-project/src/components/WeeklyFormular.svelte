@@ -452,7 +452,7 @@
     .theadA {
         margin-top: 2rem;
         font-weight: bold;
-        font-size: 100%;
+        font-size: 90%;
         color: rgb(57, 57, 57);
         text-align: center;
         width: 80%;
@@ -464,7 +464,7 @@
         border: collapse;
         font-family: "Roboto", sans-serif;
         font-weight: 300;
-        font-size: 125%;
+        font-size: 120%;
         color: rgb(94, 94, 94);
         font-style: bold;
         margin: 2rem auto 0 auto;
