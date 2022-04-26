@@ -2,13 +2,19 @@
 <script>
 import LocalStorageApi from "../LocalStorageApi.js";
 import { timeRecordsStore } from "../store.js";
-import Icon from '@iconify/svelte';
-
+import Icon from "@iconify/svelte";
+import { onMount } from "svelte";
 
 
     let isActive = "";
     let angle="fa:angle-down"
+    let user;
+    let persnum;
 
+    onMount(async () => {
+        user = await LocalStorageApi.loadUser();
+        persnum = await LocalStorageApi.loadNum();
+    });
 
     const dropdownHandler = () => {
       if(isActive === ""){
@@ -23,9 +29,12 @@ import Icon from '@iconify/svelte';
     const logOut = () => {
       $timeRecordsStore = [];
       LocalStorageApi.saveUser("");
-            LocalStorageApi.saveNum("");
-      
+      LocalStorageApi.saveNum("");
+      user="";
+      persnum="";
     };
+
+
 
 </script>
 
@@ -34,6 +43,15 @@ import Icon from '@iconify/svelte';
         <div class="container">
             <h1 class="title">Track IT</h1>
             <h2 class="subtitle"><slot></slot></h2>
+          </div>
+          <div class="name">
+            {user}
+        </div>
+        <div class="place" />
+        <div class="id">
+            {persnum}
+        </div>
+          <div class="place" />
             <div class="dropdown {isActive} is-right">
               <div class="dropdown-trigger">
                 <button class="button is-rounded" on:click={dropdownHandler} aria-haspopup="true" aria-controls="dropdown-menu3">
@@ -52,7 +70,6 @@ import Icon from '@iconify/svelte';
               </div>
             </div>
         </div>
-    </div>
 </selection>
 <div class="box">
     <div class="container">
@@ -73,6 +90,18 @@ import Icon from '@iconify/svelte';
     .dropdown{
       float: right;
       margin-bottom: 3rem;
+    }
+
+    .place {
+        height: 2rem;
+        width: 100%;
+        user-select: none;
+    }
+    .name{
+      float: right;
+    }
+    .id{
+      float: right;
     }
 
 </style>

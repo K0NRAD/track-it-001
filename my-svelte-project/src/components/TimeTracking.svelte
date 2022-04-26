@@ -8,7 +8,7 @@
     let userID;
     let userName;
     let startWorkTime = "HH:MM";
-    let startWorkDate = "DD-MM-YYYY";
+    let startWorkDate = "TT-MM-JJJJ";
     let isPauseActive = false;
     let secondsWorktime = 0;
     let secondsPause = 0;
@@ -18,9 +18,10 @@
     let goButtonDisabled = true;
     let editedText;
 
+
     onMount(async () => {
-        userName = await LocalStorageApi.loadUser();
-        userID = await LocalStorageApi.loadNum();
+        userID = await LocalStorageApi.loadUser();
+        userName = await LocalStorageApi.loadNum();
     });
 
     const pad = (num, size) => {
