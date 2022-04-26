@@ -63,16 +63,16 @@
             aria-haspopup="true"
             aria-controls="dropdown-menu3"
           >
-            <span>Menu</span>
+            <span class="Menu">Menu</span>
             <span class="icon is-small">
               <Icon icon={angle} aria-hidden="true" />
             </span>
           </button>
         </div>
         <div class="dropdown-menu" id="dropdown-menu3" role="menu">
-            <button href="/#/Login" class="LogOut-Button" on:click={logOut}>
+            <a href="/#/Login" class="button button2" on:click={logOut}>
               Log out
-            </button>
+            </a>
         </div>
       </div>
     </div>
@@ -94,6 +94,7 @@
 </div>
 
 <style>
+
   .dropdown {
     margin: 0 0 5% 80%;
   }
@@ -133,13 +134,30 @@
     text-align: center;
   }
 
-  .LogOut-Button {
+  .button2 {
+    width: 45%;
+    margin: 0 0 0 50%;
+  }
+
+  .logout {
+    border-radius: 2rem;
+    width: 90%;
+    text-align: center;
+  }
+
+  .dropdown-content {
     margin: 0 0 0 48%;
     border-radius: 2rem;
     width: 50%;
-    height: 2rem;
+    height: 1%;
     background-color: white;
     border: 1em;
+  }
+
+  .dropdown-item {
+    width: 100%;
+    height: 2%;
+    border-radius: 2rem;
   }
 
   .place {
