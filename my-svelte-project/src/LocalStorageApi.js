@@ -12,6 +12,7 @@ export default class LocalStorageApi {
         return JSON.parse(localStorage.getItem("persnum")|| "[]");
     }
     static async deleteUser() {
-        localStorage.clear();
+        localStorage.setItem("user", "");
+        localStorage.setItem("persnum", "");
     }
 }

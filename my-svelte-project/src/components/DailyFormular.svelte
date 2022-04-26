@@ -163,7 +163,7 @@
         TR = tr;
         //console.log(tr);
         for (i=0; i< tr.length; i = i + 4) {    
-                    userVersion[tr[i].sectionRowIndex] = tr[i].getElementsByTagName("td")[3].innerHTML;
+            userVersion[tr[i].sectionRowIndex] = tr[i].getElementsByTagName("td")[3].innerHTML;
         }
         console.log(userVersion);
         localStorage.setItem('userEdits', JSON.stringify(userVersion));
@@ -178,7 +178,7 @@
         if (userEdits) {
             userEdits = JSON.parse(userEdits);
             table    = document.getElementById("mytable");
-            tr       = table.getElementsByClassName("output"); //element
+            let tr       = table.getElementsByClassName("output"); //element
 
             for ( var elementId in userEdits ) {
                     tr[elementId].getElementsByTagName("td")[3].innerHTML = userEdits[elementId];

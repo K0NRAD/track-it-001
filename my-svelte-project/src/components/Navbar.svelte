@@ -1,107 +1,113 @@
-
 <script>
-import LocalStorageApi from "../LocalStorageApi.js";
-import { timeRecordsStore } from "../store.js";
-import Icon from "@iconify/svelte";
-import { onMount } from "svelte";
+  import LocalStorageApi from "../LocalStorageApi.js";
+  import { timeRecordsStore } from "../store.js";
+  import Icon from "@iconify/svelte";
+  import { onMount } from "svelte";
 
+  let isActive = "";
+  let angle = "fa:angle-down";
+  let user;
+  let persnum;
 
-    let isActive = "";
-    let angle="fa:angle-down"
-    let user;
-    let persnum;
+  onMount(async () => {
+    const interval = setInterval(() => {
+      loadUserData();
+    }, 1000);
+  });
 
-    onMount(async () => {
-        user = await LocalStorageApi.loadUser();
-        persnum = await LocalStorageApi.loadNum();
-    });
-
-    const dropdownHandler = () => {
-      if(isActive === ""){
-        isActive = "is-active";
-        angle="fa:angle-up";
-      }else{
-        isActive = "";
-        angle="fa:angle-down";
-      }
+  async function loadUserData() {
+    if(LocalStorageApi.loadUser() !== undefined && LocalStorageApi.loadNum() !== undefined){
+      user = await LocalStorageApi.loadUser();
+      persnum = await LocalStorageApi.loadNum();
     }
-  
-    const logOut = () => {
-      $timeRecordsStore = [];
-      LocalStorageApi.saveUser("");
-      LocalStorageApi.saveNum("");
-      user="";
-      persnum="";
-    };
+  }
 
+  const dropdownHandler = () => {
+    if (isActive === "") {
+      isActive = "is-active";
+      angle = "fa:angle-up";
+    } else {
+      isActive = "";
+      angle = "fa:angle-down";
+    }
+  };
 
-
+  const logOut = () => {
+    $timeRecordsStore = [];
+    LocalStorageApi.deleteUser();
+    user = "";
+    persnum = "";
+  };
 </script>
 
 <selection class="hero is-success welcome is-small">
-    <div class="hero-body">
-        <div class="container">
-            <h1 class="title">Track IT</h1>
-            <h2 class="subtitle"><slot></slot></h2>
-          </div>
-          <div class="name">
-            {user}
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">Track IT</h1>
+      <h2 class="subtitle"><slot /></h2>
+    </div>
+    <div class="name">
+      {user}
+    </div>
+    <div class="place" />
+    <div class="id">
+      {persnum}
+    </div>
+    <div class="place" />
+    <div class="dropdown {isActive} is-right">
+      <div class="dropdown-trigger">
+        <button
+          class="button is-rounded"
+          on:click={dropdownHandler}
+          aria-haspopup="true"
+          aria-controls="dropdown-menu3"
+        >
+          <span>Menu</span>
+          <span class="icon is-small">
+            <Icon icon={angle} aria-hidden="true" />
+          </span>
+        </button>
+      </div>
+      <div class="dropdown-menu" id="dropdown-menu3" role="menu">
+        <div class="dropdown-content">
+          <a href="/#/Login" class="dropdown-item" on:click={logOut}>
+            Log out
+          </a>
         </div>
-        <div class="place" />
-        <div class="id">
-            {persnum}
-        </div>
-          <div class="place" />
-            <div class="dropdown {isActive} is-right">
-              <div class="dropdown-trigger">
-                <button class="button is-rounded" on:click={dropdownHandler} aria-haspopup="true" aria-controls="dropdown-menu3">
-                  <span>Menu</span>
-                  <span class="icon is-small">
-                    <Icon icon="{angle}" aria-hidden="true" />
-                  </span>
-                </button>
-              </div>
-              <div class="dropdown-menu" id="dropdown-menu3" role="menu">
-                <div class="dropdown-content">
-                  <a href="/#/Login" class="dropdown-item" on:click={logOut}>
-                    Log out
-                  </a>
-                </div>
-              </div>
-            </div>
-        </div>
+      </div>
+    </div>
+  </div>
 </selection>
 <div class="box">
-    <div class="container">
-        <div class="field is-grouped">
-            <div class="tabs">
-                <ul>
-                    <li><a href="/#/Login">Login</a></li>
-                    <li><a href="/#/TimeTracking">Time Tracking</a></li>
-                    <li><a href="/#/WeeklyFormular">Week Overview</a></li>
-                    <li><a href="/#/DailyOverview">Daily Overview</a></li>
-                </ul>
-            </div>
-        </div>
+  <div class="container">
+    <div class="field is-grouped">
+      <div class="tabs">
+        <ul>
+          <li><a href="/#/Login">Login</a></li>
+          <li><a href="/#/TimeTracking">Time Tracking</a></li>
+          <li><a href="/#/WeeklyFormular">Week Overview</a></li>
+          <li><a href="/#/DailyOverview">Daily Overview</a></li>
+        </ul>
+      </div>
     </div>
+  </div>
 </div>
 
 <style>
-    .dropdown{
-      float: right;
-      margin-bottom: 3rem;
-    }
+  .dropdown {
+    float: right;
+    margin-bottom: 3rem;
+  }
 
-    .place {
-        height: 2rem;
-        width: 100%;
-        user-select: none;
-    }
-    .name{
-      float: right;
-    }
-    .id{
-      float: right;
-    }
-
+  .place {
+    height: 2rem;
+    width: 100%;
+    user-select: none;
+  }
+  .name {
+    float: right;
+  }
+  .id {
+    float: right;
+  }
 </style>
