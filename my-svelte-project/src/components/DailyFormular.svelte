@@ -190,9 +190,6 @@
     }
 
 
-
-    
-
 </script>
 
 <div on:load={() =>checkEdits()}>

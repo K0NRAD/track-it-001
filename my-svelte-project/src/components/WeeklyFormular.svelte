@@ -332,7 +332,7 @@
                 </thead>
                 <tfoot class="theadA">
                     <tr>
-                        <th class="tf">YYYY-MM-DD</th>
+                        <th class="tf">JJJJ-MM-TT</th>
                         <th class="tf">HH:MM:SS</th>
                         <th class="tf">HH:MM:SS</th>
                         <th class="tf">HH:MM:SS</th>
