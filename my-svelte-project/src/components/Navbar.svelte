@@ -46,40 +46,40 @@
       <h1 class="title">Track IT</h1>
       <h2 class="subtitle"><slot /></h2>
     </div>
-    <div class="name">
-      {user}
-    </div>
-    <div class="place" />
-    <div class="id">
-      {persnum}
-    </div>
-    <div class="place" />
-    <div class="dropdown {isActive} is-right">
-      <div class="dropdown-trigger">
-        <button
-          class="button is-rounded"
-          on:click={dropdownHandler}
-          aria-haspopup="true"
-          aria-controls="dropdown-menu3"
-        >
-          <span>Menu</span>
-          <span class="icon is-small">
-            <Icon icon={angle} aria-hidden="true" />
-          </span>
-        </button>
-      </div>
-      <div class="dropdown-menu" id="dropdown-menu3" role="menu">
-        <div class="dropdown-content">
-          <a href="/#/Login" class="dropdown-item" on:click={logOut}>
-            Log out
-          </a>
+    <div class="container2">
+        <div class="name">
+          {user}
+        </div>
+        <div class="place" />
+        <div class="id">
+          {persnum}
+        </div>
+      <div class="place" />
+      <div class="dropdown {isActive} is-right">
+        <div class="dropdown-trigger">
+          <button
+            class="button"
+            on:click={dropdownHandler}
+            aria-haspopup="true"
+            aria-controls="dropdown-menu3"
+          >
+            <span>Menu</span>
+            <span class="icon is-small">
+              <Icon icon={angle} aria-hidden="true" />
+            </span>
+          </button>
+        </div>
+        <div class="dropdown-menu" id="dropdown-menu3" role="menu">
+            <button href="/#/Login" class="LogOut-Button" on:click={logOut}>
+              Log out
+            </button>
         </div>
       </div>
     </div>
   </div>
 </selection>
 <div class="box">
-  <div class="container">
+  <div class="container-navbar">
     <div class="field is-grouped">
       <div class="tabs">
         <ul>
@@ -95,8 +95,51 @@
 
 <style>
   .dropdown {
+    margin: 0 0 5% 80%;
+  }
+
+  h1 {
+    font-size: 3em;
+  }
+
+  h2 {
+    font-size: 2em;
+  }
+
+  .container {
+    float:left;
+    width: 50%;
+    margin: 0 0 0 15%;
+  }
+
+  .container-navbar {
+    margin: 0 0 0 15%;
+    width: 80%;
+  }
+
+  .box {
+    padding: 0.8rem;
+    width: 100%;
+  }
+
+  .container2 {
+    width: 20%;
     float: right;
-    margin-bottom: 3rem;
+  }
+
+  .button {
+    border-radius: 2rem;
+    width: 90%;
+    text-align: center;
+  }
+
+  .LogOut-Button {
+    margin: 0 0 0 48%;
+    border-radius: 2rem;
+    width: 50%;
+    height: 2rem;
+    background-color: white;
+    border: 1em;
   }
 
   .place {
